@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bench press · animation preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#15181D;--steel:#1F242C;--line:#39414D;--chalk:#E7E4DC;--mute:#8E97A4;--signal:#E8B923}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--chalk);font-family:Inter,system-ui,sans-serif;
+ padding:18px;max-width:560px;margin:0 auto}
+h1{font-family:"Barlow Condensed",sans-serif;font-size:24px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 4px}
+.sub{color:var(--mute);font-size:13px;margin-bottom:16px}
+.box{background:var(--steel);border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:12px}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+button{font:inherit;color:var(--chalk);background:transparent;border:1px solid var(--line);
+ border-radius:99px;padding:8px 14px;font-size:13px;cursor:pointer;font-family:"Barlow Condensed",sans-serif;
+ letter-spacing:.08em;text-transform:uppercase}
+button[aria-pressed="true"]{background:var(--signal);border-color:var(--signal);color:var(--ink);font-weight:600}
+.lbl{font-family:"Barlow Condensed",sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ---------- the scene ---------- */
+.scene{display:block;width:100%;height:auto}
+.scene .lab{font-family:"Barlow Condensed",sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;fill:#D8453B}
+.scene .lab2{font-family:Inter,sans-serif;font-size:7.5px;fill:#98A1AE}
+.scene .lead{stroke:#98A1AE;stroke-width:.7;fill:none}
+
+/* skin + muscle palette */
+.sk{fill:#57616F}          /* body base            */
+.sk2{fill:#49525F}         /* shaded / far side    */
+.far{fill:#333B47}
+.pri{fill:#D8453B}         /* target muscle        */
+.sec{fill:#9A4239}         /* assisting muscle     */
+.sep{stroke:#3E4653;stroke-width:.8;fill:none}   /* muscle separation lines */
+
+/* two-bone arm: upper arm swings +122, forearm counter-rotates -112 */
+.ua{transform-origin:146px 113px;animation:ua var(--dur,4s) cubic-bezier(.42,0,.58,1) infinite}
+.fa{transform-origin:146px 89px;animation:fa var(--dur,4s) cubic-bezier(.42,0,.58,1) infinite}
+.pec{transform-origin:161px 114px;animation:pec var(--dur,4s) cubic-bezier(.42,0,.58,1) infinite}
+.tri{animation:tri var(--dur,4s) cubic-bezier(.42,0,.58,1) infinite}
+@keyframes ua{0%,9%{transform:rotate(0deg)}47%,56%{transform:rotate(122deg)}94%,100%{transform:rotate(0deg)}}
+@keyframes fa{0%,9%{transform:rotate(0deg)}47%,56%{transform:rotate(-112deg)}94%,100%{transform:rotate(0deg)}}
+@keyframes pec{0%,9%{transform:scale(.93,.90);opacity:1}47%,56%{transform:scale(1.06,1.10);opacity:.82}94%,100%{transform:scale(.93,.90);opacity:1}}
+@keyframes tri{0%,9%{opacity:1}47%,56%{opacity:.6}94%,100%{opacity:1}}
+.frozen .ua,.frozen .fa,.frozen .pec,.frozen .tri{animation:none}
+.at-bottom .ua{transform:rotate(122deg)}
+.at-bottom .fa{transform:rotate(-112deg)}
+.at-bottom .pec{transform:scale(1.06,1.10)}
+.paused .ua,.paused .fa,.paused .pec,.paused .tri{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.ua,.fa,.pec,.tri{animation:none}}
+</style></head>
+<body>
+
+<h1>Bench press</h1>
+<div class="sub">Take two. Proper joint angles, muscle bellies instead of stick limbs, and the pec visibly loading and shortening through the rep.</div>
+
+<div class="ctl">
+  <button id="pp" aria-pressed="false">Pause</button>
+  <button data-sp="6s">Slow</button>
+  <button data-sp="4s" aria-pressed="true">Normal</button>
+  <button data-sp="2.2s">Fast</button>
+</div>
+
+<div class="box"><div id="live"></div></div>
+
+<div class="lbl">The two poses it moves between</div>
+<div class="pair">
+  <div class="box"><div id="p1"></div></div>
+  <div class="box"><div id="p2"></div></div>
+</div>
+
+<script>
+function scene(){return `
+<svg class="scene" viewBox="0 0 300 200" role="img" aria-label="Bench press: bar lowered to the chest and pressed to lockout">
+ <defs>
+  <linearGradient id="pl" x1="0" y1="0" x2="0" y2="1">
+   <stop offset="0" stop-color="#69737F"/><stop offset="1" stop-color="#2C333D"/></linearGradient>
+  <linearGradient id="pad" x1="0" y1="0" x2="0" y2="1">
+   <stop offset="0" stop-color="#4B5460"/><stop offset="1" stop-color="#333B47"/></linearGradient>
+ </defs>
+
+ <line x1="14" y1="184" x2="290" y2="184" stroke="#39414D" stroke-width="2"/>
+
+ <!-- rack -->
+ <rect x="95" y="52" width="9" height="132" rx="2" fill="#3E4653"/>
+ <rect x="80" y="180" width="39" height="6" rx="3" fill="#3E4653"/>
+ <path d="M95 66 L85 60 L85 51" fill="none" stroke="#4E5765" stroke-width="4" stroke-linecap="round"/>
+
+ <!-- bench -->
+ <rect x="116" y="126" width="122" height="11" rx="4" fill="url(#pad)"/>
+ <rect x="124" y="137" width="8" height="47" rx="2" fill="#3E4653"/>
+ <rect x="222" y="137" width="8" height="47" rx="2" fill="#3E4653"/>
+
+ <!-- ===== far-side arm, behind the body ===== -->
+ <g class="far-wrap" transform="translate(9,7)">
+  <g class="ua"><path class="far" d="M138.5 115 C132 105 133.5 94 139.5 87.5 L152.5 87.5 C158.5 94 160 105 153.5 115 Z"/>
+   <g class="fa"><path class="far" d="M140 90 C137.5 82 137.5 74 140.5 66 L151.5 66 C154.5 74 154.5 82 152 90 Z"/>
+    <path class="far" d="M140 70 q6 -5 12 0 l0 6 q-6 4 -12 0 Z"/></g></g>
+ </g>
+
+ <!-- ===== legs ===== -->
+ <path class="sk2" d="M192 118 C206 120 218 128 226 141 L232 176 L221 178 L214 145 C206 136 196 132 190 131 Z"/>
+ <path class="sep" d="M210 130 C214 136 218 143 220 152"/>
+ <rect x="216" y="174" width="26" height="9" rx="4" fill="#3E4653"/>
+
+ <!-- ===== torso ===== -->
+ <path class="sk" d="M141 106 C158 104 178 107 194 113 C199 116 200 124 197 130 L143 128 C138 124 137 110 141 106 Z"/>
+ <!-- ribs / abdominal separation -->
+ <path class="sep" d="M176 110 C178 117 178 123 176 129"/>
+ <path class="sep" d="M186 112 C188 118 188 124 186 129"/>
+
+ <!-- pectoral, the target muscle -->
+ <g class="pec"><path class="pri" d="M148 108 C157 105 168 106 175 110 C177 116 175 122 171 125 C161 126 151 123 147 119 C145 115 145 110 148 108 Z"/></g>
+ <path class="sep" d="M150 110 C158 109 166 110 172 113"/>
+
+ <!-- anterior deltoid sits on the shoulder joint, so it does not travel -->
+ <circle class="sec" cx="147" cy="112" r="9"/>
+ <path class="sep" d="M140 112 C143 106 151 105 155 108"/>
+
+ <!-- neck + head, profile facing up -->
+ <path class="sk2" d="M138 108 C134 108 132 114 133 120 L142 126 L143 108 Z"/>
+ <path class="sk" d="M133 112 C126 108 118 111 116 118 C114 125 119 131 127 131 C133 131 137 127 137 122 Z"/>
+ <path class="sep" d="M120 116 C123 114 126 114 128 116"/>
+ <path class="sk2" d="M116 118 C112 117 110 121 113 124 L117 124 Z"/>
+
+ <!-- ===== range of motion ===== -->
+ <g stroke="#D8453B" stroke-width="2.2" fill="#D8453B">
+  <line x1="252" y1="76" x2="252" y2="96"/>
+  <path d="M252 66 L247 78 L257 78 Z"/><path d="M252 106 L247 94 L257 94 Z"/>
+ </g>
+ <text class="lab" x="238" y="60" text-anchor="middle">Finish</text>
+ <text class="lab" x="238" y="118" text-anchor="middle">Start</text>
+
+ <!-- ghosted bar positions -->
+ <circle cx="146" cy="67" r="17" fill="none" stroke="#4E5765" stroke-width=".9" stroke-dasharray="3 3"/>
+ <circle cx="170" cy="104" r="17" fill="none" stroke="#4E5765" stroke-width=".9" stroke-dasharray="3 3"/>
+
+ <!-- ===== near arm ===== -->
+ <g class="ua">
+  <!-- triceps belly on the underside of the upper arm -->
+  <path class="sk" d="M138.5 115 C132 105 133.5 94 139.5 87.5 L152.5 87.5 C158.5 94 160 105 153.5 115 Z"/>
+  <path class="tri sec" d="M138.8 114 C133.5 105 135 95 139.8 89 L145 89 L144 114 Z"/>
+  <path class="sep" d="M147 90 C149 98 149 107 147 114"/>
+  <g class="fa">
+   <path class="sk" d="M140 90 C137.5 82 137.5 74 140.5 66 L151.5 66 C154.5 74 154.5 82 152 90 Z"/>
+   <path class="sep" d="M146.5 68 C147.5 75 147.5 83 146.5 89"/>
+   <!-- gripping hand -->
+   <path class="sk2" d="M139.5 71 q6.5 -5 13 0 l0 7 q-6.5 4.5 -13 0 Z"/>
+   <!-- bar seen end on: plate, collar, shaft -->
+   <circle cx="146" cy="67" r="17" fill="url(#pl)" stroke="#69737F" stroke-width="1.2"/>
+   <circle cx="146" cy="67" r="6.5" fill="#6E7784"/>
+   <circle cx="146" cy="67" r="2.6" fill="#98A1AE"/>
+  </g>
+ </g>
+
+ <!-- ===== labels ===== -->
+ <path class="lead" d="M172 116 L214 132"/>
+ <text class="lab2" x="216" y="134">Pectoralis major</text>
+ <path class="lead" d="M143 106 L118 88"/>
+ <text class="lab2" x="116" y="86" text-anchor="middle">Anterior deltoid</text>
+ <path class="lead" d="M136 100 L74 96"/>
+ <text class="lab2" x="72" y="98" text-anchor="end">Triceps</text>
+</svg>`}
+
+document.getElementById('live').innerHTML=scene();
+document.getElementById('p1').innerHTML=scene().replace('class="scene"','class="scene frozen"');
+document.getElementById('p2').innerHTML=scene().replace('class="scene"','class="scene frozen at-bottom"');
+
+const live=()=>document.querySelector('#live .scene');
+const pp=document.getElementById('pp');
+pp.onclick=()=>{const on=live().classList.toggle('paused');
+  pp.textContent=on?'Play':'Pause';pp.setAttribute('aria-pressed',on)};
+document.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('[data-sp]').forEach(o=>o.setAttribute('aria-pressed',o===b));
+  live().style.setProperty('--dur',b.dataset.sp)});
+</script>
+</body></html>
