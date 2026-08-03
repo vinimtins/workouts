@@ -1037,8 +1037,14 @@ SCENE.ohtri1arm=()=>`
    default. Try the folder, fall back to the root, then to the muscle map. */
 const IMG_DIR='img/';
 const IMG_FILES={
-  legext:'leg-extension.gif'
-  /* add more as you drop files in, e.g. legcurl:'leg-curl.gif' */
+  legext:'leg-extension.gif',
+  legcurl:'leg-curl.gif',
+  dbrdl:'dumbbell-romanian-deadlift.gif',
+  lunge:'dumbbell-walking-lunge.gif',
+  hang:'hanging-knee-raises.gif',
+  plank:'plank.gif',
+  bicycle:'bicycle-crunch.gif'
+  /* add more as you drop files into img/ */
 };
 const IMG={};
 Object.keys(IMG_FILES).forEach(k=>{IMG[k]=IMG_DIR+IMG_FILES[k]});
