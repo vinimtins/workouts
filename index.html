@@ -390,6 +390,41 @@ nav .ic{font-size:15px;line-height:1}
 .qacts button svg{width:16px;height:16px;fill:currentColor}
 .qacts button:active{background:var(--steel-2);color:var(--chalk)}
 .qtime{font-family:"Barlow Condensed",sans-serif;color:var(--mute);font-size:14px;flex:0 0 auto;padding-left:2px}
+/* ---- confirm card ---- */
+.confirm{margin-top:14px;padding:13px 12px;border-radius:15px;background:rgba(0,0,0,.28);
+  border:1px solid var(--line);animation:cfIn .22s cubic-bezier(.32,.72,0,1)}
+.confirm.held{border-color:var(--signal)}
+@keyframes cfIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.stepper.sm button{flex:0 0 42px;min-height:42px;font-size:19px}
+.stepper.sm input{padding:9px 0;font-size:17px}
+.rpebar{display:flex;gap:5px;margin-top:7px}
+.rpebar button{flex:1;min-height:52px;border-radius:11px;border:1px solid var(--line);
+  background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  padding:5px 2px;transition:background .14s ease,border-color .14s ease,transform .1s ease}
+.rpebar button b{font-family:"Barlow Condensed",sans-serif;font-size:17px;line-height:1;color:var(--c)}
+.rpebar button i{font-style:normal;font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--mute);font-family:"Barlow Condensed",sans-serif;line-height:1}
+.rpebar button.on{background:var(--c);border-color:var(--c)}
+.rpebar button.on b,.rpebar button.on i{color:#12151A}
+.rpebar button:active{transform:scale(.95)}
+.rpetag{flex:0 0 auto;min-width:22px;height:22px;border-radius:6px;display:grid;place-items:center;
+  font-family:"Barlow Condensed",sans-serif;font-size:12px;color:#12151A;font-weight:600}
+/* tappable name and artwork in the player */
+.now .track.tapname{display:block;width:100%;text-align:left;padding:0;background:none;
+  font-family:"Barlow Condensed",sans-serif;font-size:clamp(21px,6vw,26px);
+  text-transform:uppercase;letter-spacing:.03em;line-height:1.05;color:var(--chalk)}
+.infodot{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;
+  border:1px solid var(--mute);color:var(--mute);font-family:-apple-system,system-ui,serif;
+  font-size:12px;font-style:italic;margin-left:8px;vertical-align:3px;text-transform:none}
+.now button.art{border:0;padding:0;cursor:pointer}
+.now button.art:active,.now .track.tapname:active{opacity:.7}
+/* muscles worked, in the info sheet */
+.mgroup{display:flex;gap:11px;align-items:flex-start;padding:9px 0}
+.mkey{flex:0 0 12px;height:12px;border-radius:3px;margin-top:4px}
+.mkey.pri{background:#D8453B}
+.mkey.sec{background:#9A4239}
+.mtitle{font-family:"Barlow Condensed",sans-serif;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);margin-bottom:1px}
 .flexb{flex:1}
 .btn.danger{background:#C8382F;color:#fff}
 .chip.flex{flex:1;text-align:center;padding:9px 0}
@@ -636,6 +671,8 @@ const RAW=[
 ["bbrow","Barbell row","Back","Barbell","Compound",1,"6–10",150,"Torso around 45°|Pull to the belly, not the chest|Control the eccentric, no bouncing","Rear delts, biceps"],
 ["pendlay","Pendlay row","Back","Barbell","Compound",1,"5–8",150,"Torso parallel to the floor|Bar resets on the floor each rep|Explosive up, controlled down","Lats, traps"],
 ["hip","Hip thrust","Legs","Barbell","Compound",1,"8–12",120,"Shoulder blades on the bench edge|Chin tucked, ribs down|Full lockout, squeeze at the top","Hamstrings"],
+["dbrdl","Dumbbell Romanian deadlift","Legs","Dumbbell","Compound",0,"8–12",150,"Soft knees, hinge at the hips|Bells stay close to the thighs|Push the hips back rather than bending down|Stop when the hamstrings run out of stretch","Glutes, lower back"],
+["bicycle","Bicycle crunch","Core","Bodyweight","Isolation",0,"12–20",60,"Hands light behind the head, never pulling the neck|Opposite elbow toward opposite knee|Extend the other leg long and low|Slow and deliberate beats fast and sloppy","Obliques, hip flexors"],
 ["lunge","Walking lunge","Legs","Dumbbell","Compound",0,"8–12",120,"Long step, torso upright|Back knee to just above the floor|Drive through the front heel","Glutes, balance"],
 ["bulg","Bulgarian split squat","Legs","Dumbbell","Compound",0,"8–12",120,"Rear foot on the bench, laces down|Front shin near vertical|Lean slightly forward for more glute","Quads, glutes"],
 ["gob","Goblet squat","Legs","Dumbbell","Compound",0,"8–15",90,"Hold the bell at chest height|Elbows inside the knees at the bottom|Great warm-up for barbell squats","Core"],
@@ -987,7 +1024,16 @@ SCENE.ohtri1arm=()=>`
    Optional real artwork: drop a URL or data-URI into IMG and it overrides the
    generated figure everywhere. Leave a key out and the muscle map is used.
    e.g. IMG.preacher = 'https://example.com/preacher-curl.png'                */
+/* Artwork lives beside index.html in an img/ folder, not inlined: base64 costs
+   a third more, bloats every code update, and cannot be cached separately.
+   Any file present here overrides the generated muscle map everywhere.     */
+const IMG_DIR='img/';
+const IMG_FILES={
+  legext:'leg-extension.gif'
+  /* add more as you drop files in, e.g. legcurl:'leg-curl.gif' */
+};
 const IMG={};
+Object.keys(IMG_FILES).forEach(k=>{IMG[k]=IMG_DIR+IMG_FILES[k]});
 /* ================= artwork layer =================
    Priority when drawing an exercise: saved artwork -> hardcoded IMG -> animated
    SCENE -> generated muscle map. Artwork is fetched from wger.de, whose exercise
@@ -1094,6 +1140,8 @@ ohp:['delts_front,delts_side','triceps,abs,traps','Press a bar from the shoulder
 bbrow:['lats,midback','biceps,delts_rear,lowerback','Hinge forward and row a bar to the stomach. Builds back thickness.'],
 pendlay:['lats,midback','biceps,traps,delts_rear','A strict row from a dead stop on the floor with the torso parallel. Explosive up, no momentum.'],
 hip:['glutes','hams,abs','Shoulders on a bench, drive the hips up against a loaded bar. The most direct glute loading there is.'],
+dbrdl:['hams,glutes','lowerback,forearms','A hip hinge holding dumbbells, lowering them down the front of the legs. Easier to learn than the barbell version and kinder to the lower back at light loads.'],
+bicycle:['obliques,abs','','Lying down, alternating opposite elbow to opposite knee while the other leg extends. The rotation is what makes it an oblique exercise rather than a crunch.'],
 lunge:['quads,glutes','hams,adductors,calves','Step forward into a lunge and continue walking. Single-leg strength plus balance.'],
 bulg:['quads,glutes','hams,adductors,abs','Rear foot elevated, squat on the front leg. Brutal single-leg work with light loads.'],
 gob:['quads,glutes','abs,delts_front,forearms','Squat holding a single weight at chest height. Teaches squat depth and position.'],
@@ -1201,14 +1249,27 @@ function muscleLegend(id){const m=musc(id);
 const GROUPS=['Chest','Back','Shoulders','Legs','Arms','Core'],EQUIP=['Barbell','Dumbbell','Machine','Cable','Bodyweight','Kettlebell'];
 
 /* ================= state ================= */
-let S={sets:[],bio:[],checks:[],height:null,session:null,parked:null,plans:[],current:null,art:{},gear:null,sync:null,del:[],notes:{},mtime:0,schema:5,done:0};
+let S={sets:[],bio:[],checks:[],height:null,session:null,parked:null,plans:[],current:null,art:{},gear:null,sync:null,del:[],notes:{},mtime:0,schema:6,done:0};
 let tab='workout',plan='workouts',stat='progress',pickFor=null,planView=null,exView='grid',filt={g:'All',eq:'All',q:'',mine:true};
 let tick=null,paused=false,elapsedTick=null;
+
 const today=()=>new Date().toISOString().slice(0,10);
 const el=i=>document.getElementById(i);
 /* Set types. Only 'work' and 'fail' count toward the target set count and
    volume; a warm-up is preparation and a drop set is a continuation of the set
    before it, so neither should inflate weekly volume.                       */
+/* RPE 6-10. The set is already logged when this appears, so the prompt is a
+   correction step, never a creation step: dismissing it keeps the set exactly
+   as recorded. Colours follow the gauge ramp green -> red.                 */
+const RPE=[
+ {v:6, n:'Very low', d:'4 or more left', c:'#3E9B4F'},
+ {v:7, n:'Low',      d:'3 left',         c:'#8DBF3C'},
+ {v:8, n:'Medium',   d:'2 left',         c:'#E8B923'},
+ {v:9, n:'High',     d:'1 left',         c:'#E07B39'},
+ {v:10,n:'Critical', d:'Nothing left',   c:'#C8382F'}
+];
+const rpeOf=v=>RPE.find(r=>r.v===v)||null;
+
 const SETTYPE={
   work:{k:'work',n:'Working',s:'',vol:true,counts:true},
   warm:{k:'warm',n:'Warm-up',s:'W',vol:false,counts:false},
@@ -1643,9 +1704,9 @@ function seedPlan(){
     {k:'B',n:'Back and biceps',b:[
       blk('latpull',8,12),blk('cablerow',8,12),blk('dbrow',8,12),blk('facepull',12,20),
       blk('cablecurl',10,12),blk('hammer',10,12)]},
-    {k:'C',n:'Legs and abs',b:[
-      blk('gob',10,12),blk('rdl',8,12),blk('legext',12,15),blk('legcurl',12,15),
-      blk('lunge',10,12),blk('plank',45),blk('carry',45)]},
+    {k:'C',n:'Legs and core',b:[
+      blk('legext',12,15),blk('legcurl',12,15),blk('dbrdl',8,12),blk('lunge',10,12),
+      blk('hang',10,15),blk('plank',45),blk('bicycle',12,20)]},
     {k:'R',n:'Rest or easy cardio',b:[]}
    ]}}
 
@@ -1708,8 +1769,9 @@ function finishSet(){
   hap([10,40,18]);   /* logging a set is the app's success moment */
   const ty=b.nextType||'work';
   S.sets.push({id:uid(),date:today(),ex:b.ex,reps:b.reps,type:ty,
-    weight:b.weight,dur:Math.round(st.t),ts:tnow(),note:b.pendingNote||''});
-  b.pendingNote='';
+    weight:b.weight,dur:Math.round(st.t),ts:tnow(),note:b.pendingNote||'',
+    rpe:b.nextRPE||null});
+  b.pendingNote='';b.nextRPE=null;
   s.lastLog=`${b.weight?wt(b.weight)+' × ':''}${b.reps}`;
   if(SETTYPE[ty].counts)b.logged++;
   const wasDrop=ty==='drop';
@@ -1722,6 +1784,24 @@ function finishSet(){
   else armTimer('rest',restFor(b.ex,doneHere?'ex':'set'));
   save();render()}
 function stopTimer(){clearTimer();save();render()}
+
+/* The bar targets whichever set the rating can sensibly belong to: while a set
+   is running it is held and attached when the set is logged; once the set is
+   logged it edits that set directly. */
+function rpeTarget(){
+  const s=S.session;if(!s)return null;
+  const b=cur();if(!b)return null;
+  if(timerState().mode==='set')return {pending:true,b};
+  const mine=S.sets.filter(q=>q.date===today()&&q.ex===b.ex);
+  return mine.length?{set:mine[mine.length-1]}:{pending:true,b}}
+function currentRPE(){
+  const t=rpeTarget();if(!t)return null;
+  return t.pending?(t.b.nextRPE||null):(t.set.rpe||null)}
+function setRPE(v){
+  const t=rpeTarget();if(!t)return;
+  if(t.pending)t.b.nextRPE=(t.b.nextRPE===v?null:v);
+  else {t.set.rpe=(t.set.rpe===v?null:v);t.set.ts=Date.now()}
+  hap(10);save();render()}
 function bumpRest(sec){
   const s=S.session,m=s&&s.tm;if(!m||m.mode!=='rest')return;
   m.total=Math.max(5,m.total+sec);
@@ -2189,10 +2269,11 @@ function vWorkout(){
 
   <div class="now ${resting?'resting':''} ${held?'held':''}">
     ${resting&&st.total?`<div class="prog" style="width:${(1-st.t/st.total)*100}%"></div>`:''}
-    <div class="art">${figure(x.id,'front')}</div>
-    <div class="track">${esc(x.n)}</div>
+    <button class="art" data-ex="${x.id}" aria-label="How to do ${esc(x.n)}">${figure(x.id,'front')}</button>
+    <button class="track tapname" data-ex="${x.id}">${esc(x.n)}<span class="infodot">i</span></button>
     <div class="sub">${resting&&s.lastLog?`Just logged · ${esc(s.lastLog)}`
       :`${esc(x.g)} · ${esc(x.also||x.eq)}`}</div>
+    ${(b.nextType&&b.nextType!=='work')?`<div class="exnote pending">Next set: ${esc(SETTYPE[b.nextType].n.toLowerCase())}</div>`:''}
     ${exNote(x.id)?`<div class="exnote">${esc(exNote(x.id))}</div>`:''}
     ${b.pendingNote?`<div class="exnote pending">Next set: ${esc(b.pendingNote)}</div>`:''}
 
@@ -2231,11 +2312,19 @@ function vWorkout(){
         <svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm9.4 4a7.4 7.4 0 01-.1 1.2l2 1.6-1.9 3.3-2.4-1a7.5 7.5 0 01-2 1.2l-.4 2.6h-3.8l-.4-2.6a7.5 7.5 0 01-2-1.2l-2.4 1L2.7 14.8l2-1.6A7.4 7.4 0 014.6 12c0-.4 0-.8.1-1.2l-2-1.6 1.9-3.3 2.4 1a7.5 7.5 0 012-1.2l.4-2.6h3.8l.4 2.6c.7.3 1.4.7 2 1.2l2.4-1 1.9 3.3-2 1.6c.1.4.1.8.1 1.2z"/></svg>
         <small>Adjust</small></button>
     </div>
-    <div class="row tight" style="margin-top:8px">
-      <button class="chip flex" id="typetog" aria-pressed="${(b.nextType||'work')!=='work'}">${SETTYPE[b.nextType||'work'].n}</button>
-      <button class="chip flex" id="notebtn">${exNote(x.id)||b.pendingNote?'Notes ·':'Note'}</button>
-      <button class="chip flex" data-ex="${x.id}">How to</button>
-    </div>`}
+    ${(()=>{const v=currentRPE(),cur2=rpeOf(v),tg=rpeTarget();
+      /* The card header has already moved on to the next set, so name the set
+         this bar is actually rating or it reads as the wrong one. */
+      const which=!tg?''
+        :tg.pending?`set ${Math.min(b.logged+1,b.target)}`
+        :`set ${S.sets.filter(q=>q.date===today()&&q.ex===b.ex).length}, just done`;
+      return `<div class="row spread" style="margin-top:16px">
+        <span class="lbl" style="margin:0">How hard${which?' · '+which:''}</span>
+        <span class="lbl" style="margin:0;color:${cur2?cur2.c:'var(--mute)'}">${cur2?`RPE ${cur2.v} · ${cur2.d}`:'not rated'}</span>
+      </div>
+      <div class="rpebar">${RPE.map(r=>`<button data-rpe="${r.v}"
+        class="${v===r.v?'on':''}" style="--c:${r.c}"
+        aria-label="RPE ${r.v}, ${esc(r.n)}"><b>${r.v}</b><i>${esc(r.n)}</i></button>`).join('')}</div>`})()}`}
   </div>
 
   ${allDone?`<div style="height:12px"></div>
@@ -2258,6 +2347,7 @@ function vWorkout(){
             <span class="body"><span class="t num">${q.weight?wt(q.weight)+' × ':''}${q.reps}</span>
             ${q.note?`<span class="small mute">${esc(q.note)}</span>`
               :ref?`<span class="small mute">was ${(ref.weight?ref.weight+'×':'')+ref.reps}</span>`:''}</span>
+            ${q.rpe?`<span class="rpetag" style="background:${rpeOf(q.rpe).c}">${q.rpe}</span>`:''}
             ${better?'<span class="pill on">up</span>':''}
             <span class="arw">›</span></button></div>`}).join('')}
     </div>`})()}
@@ -2951,6 +3041,18 @@ function adjustSheet(i){
     <button data-as="+${i}">+</button></div></div>
   ${x.bar?`<div class="hr"></div>${barSVG(q.weight)}`:''}
   <div class="hr"></div>
+  <span class="lbl">Next set is</span>
+  <div class="row tight">${Object.values(SETTYPE).map(t=>
+    `<button class="chip flex" data-settype="${t.k}" aria-pressed="${(q.nextType||'work')===t.k}">${esc(t.n)}</button>`).join('')}</div>
+  <div style="height:12px"></div>
+  <span class="lbl">Note on this exercise</span>
+  <textarea class="search" id="exnote" rows="2" placeholder="e.g. pin 4, feet on the bench">${esc(exNote(q.ex))}</textarea>
+  <div style="height:9px"></div>
+  <span class="lbl">Note on the next set</span>
+  <textarea class="search" id="setnote" rows="2" placeholder="e.g. left shoulder tight">${esc(q.pendingNote||'')}</textarea>
+  <div style="height:12px"></div>
+  <button class="btn ghost slim" data-ex="${q.ex}" style="width:100%">How to do this lift</button>
+  <div class="hr"></div>
   <button class="btn ghost slim" data-qdup="${i}" style="width:100%">Add this lift again, later in the session</button>
   <div class="hr"></div>
   <div class="row">
@@ -2980,35 +3082,7 @@ function swapSheet(i){
     <span class="arw">›</span></button>`).join('')
   :'<div class="empty">No alternatives available for this muscle group with your equipment.</div>'}`}
 
-function typeSheet(){
-  const b=cur();if(!b)return '';
-  const now=b.nextType||'work';
-  return `<div class="row spread"><h2 style="font-size:20px;color:var(--chalk)">Next set</h2>
-    <button class="pill" data-close>Close</button></div>
-  <div class="small mute" style="margin:8px 0 12px">Applies to the set you are about to log, then resets to working.</div>
-  ${Object.values(SETTYPE).map(t=>`<button class="item" data-settype="${t.k}">
-    <span class="tick ${now===t.k?'on':''}">${now===t.k?'\u2713':''}</span>
-    <span class="body"><span class="t">${esc(t.n)}</span>
-    <span class="small mute">${t.k==='work'?'Counts toward the target and volume'
-      :t.k==='warm'?'Logged, but not counted anywhere'
-      :t.k==='fail'?'Counts, and marked so you can see where you pushed'
-      :'Follows straight on with no rest, not counted separately'}</span></span></button>`).join('')}`}
 
-function noteSheet(){
-  const b=cur();if(!b)return '';
-  const x=byId(b.ex);
-  const hist=S.sets.filter(q=>q.ex===b.ex&&q.note).slice(-4).reverse();
-  return `<div class="row spread"><h2 style="font-size:20px;color:var(--chalk)">${esc(x.n)} notes</h2>
-    <button class="pill" data-close>Close</button></div>
-  <div class="small mute" style="margin:8px 0 10px">A note on the exercise sticks. A note on the next set is logged with it.</div>
-  <span class="lbl">On this exercise</span>
-  <textarea class="search" id="exnote" rows="2" placeholder="e.g. pin 4, feet on the bench">${esc(exNote(b.ex))}</textarea>
-  <div style="height:10px"></div>
-  <span class="lbl">On the next set</span>
-  <textarea class="search" id="setnote" rows="2" placeholder="e.g. left shoulder tight">${esc(b.pendingNote||'')}</textarea>
-  ${hist.length?`<div class="hr"></div><div class="lbl">Recent set notes</div>
-    ${hist.map(q=>`<div class="item"><span class="body"><span class="small">${esc(q.note)}</span>
-      <span class="small mute">${rel(q.date)} · ${q.weight}${G().unit} × ${q.reps}</span></span></div>`).join('')}`:''}`}
 
 function setSheet(id){
   const q=S.sets.find(x=>x.id===id);if(!q)return '';
@@ -3031,6 +3105,10 @@ function setSheet(id){
   <div class="row tight">${Object.values(SETTYPE).map(t=>
     `<button class="chip flex" data-estype="${t.k}|${id}" aria-pressed="${stype(q).k===t.k}">${esc(t.n)}</button>`).join('')}</div>
   <div style="height:10px"></div>
+  <span class="lbl">How hard it felt</span>
+  <div class="rpebar">${RPE.map(r=>`<button data-esrpe="${r.v}|${id}"
+    class="${q.rpe===r.v?'on':''}" style="--c:${r.c}"><b>${r.v}</b><i>${esc(r.n)}</i></button>`).join('')}</div>
+  <div style="height:12px"></div>
   <span class="lbl">Note</span>
   <textarea class="search" id="esnote" rows="2" data-esnote="${id}" placeholder="Anything worth remembering">${esc(q.note||'')}</textarea>
   <div style="height:14px"></div>
@@ -3099,7 +3177,16 @@ function exSheet(id){const x=byId(id),b=bestEver(id),h=byDay(id);
     <span class="tag">Front</span><span class="tag" style="margin-left:auto">Back</span></div>
   ${muscleLegend(id)}
   <div class="exdesc">${esc(musc(id).d)}</div>
-  <div class="small mute" style="margin-top:8px">Also works: ${esc(x.also)}</div><div class="hr"></div><div class="lbl">Execution</div>
+  ${(()=>{const m=musc(id);if(!m.pri.length)return '';
+    return `<div class="hr"></div><div class="lbl">Muscles worked</div>
+      <div class="mgroup"><span class="mkey pri"></span><div>
+        <div class="mtitle">Target</div>
+        <div class="small">${m.pri.map(k=>MUSCLE_NAME[k]||k).join(', ')}</div></div></div>
+      ${m.sec.length?`<div class="mgroup"><span class="mkey sec"></span><div>
+        <div class="mtitle">Also worked</div>
+        <div class="small">${m.sec.map(k=>MUSCLE_NAME[k]||k).join(', ')}</div></div></div>`:''}
+      ${x.also?`<div class="small mute" style="margin-top:6px">Assisting: ${esc(x.also)}</div>`:''}`})()}
+  <div class="hr"></div><div class="lbl">Execution</div>
   ${x.cues.map((c,i)=>`<div class="cue"><i>${i+1}</i><span>${esc(c)}</span></div>`).join('')}
   ${b?`<div class="hr"></div><div class="row" style="gap:24px">
     <div class="stat"><b class="num">${b.weight}</b><span>best kg</span></div>
@@ -3113,6 +3200,36 @@ function exSheet(id){const x=byId(id),b=bestEver(id),h=byDay(id);
 
 /* ================= wiring ================= */
 function wire(){
+  /* ---- logged set rows: tap to edit, swipe to delete ---- */
+  document.querySelectorAll('[data-swipe]').forEach(r=>{if(r._sw)return;r._sw=true;swipeable(r)});
+  document.querySelectorAll('[data-editset]').forEach(q=>q.onclick=()=>openSheet(setSheet(q.dataset.editset)));
+  const editSet=(id,f)=>{const q=S.sets.find(x=>x.id===id);if(!q)return;
+    f(q);q.ts=Date.now();hap(8);save();openSheet(setSheet(id));render()};
+  document.querySelectorAll('[data-esw]').forEach(q=>q.onclick=()=>{
+    const v=q.dataset.esw,id=v.slice(1);
+    editSet(id,r=>{const st2=weightStep(r.ex);
+      r.weight=Math.max(0,+(r.weight+(v[0]==='+'?st2:-st2)).toFixed(2))})});
+  document.querySelectorAll('[data-esr]').forEach(q=>q.onclick=()=>{
+    const v=q.dataset.esr,id=v.slice(1);
+    editSet(id,r=>{r.reps=Math.max(1,r.reps+(v[0]==='+'?1:-1))})});
+  document.querySelectorAll('[data-estype]').forEach(q=>q.onclick=()=>{
+    const [t,id]=q.dataset.estype.split('|');
+    const r=S.sets.find(x=>x.id===id);if(!r)return;
+    r.type=t;delete r.warm;r.ts=Date.now();hap(8);save();openSheet(setSheet(id));render()});
+  document.querySelectorAll('[data-esrpe]').forEach(q=>q.onclick=()=>{
+    const [v,id]=q.dataset.esrpe.split('|'),r=S.sets.find(x=>x.id===id);
+    if(!r)return;r.rpe=(r.rpe===+v?null:+v);r.ts=Date.now();hap(8);save();openSheet(setSheet(id));render()});
+  const esn=el('esnote');if(esn)esn.onblur=e=>{
+    const r=S.sets.find(x=>x.id===e.target.dataset.esnote);
+    if(r){r.note=e.target.value.trim();r.ts=Date.now();save();render()}};
+  document.querySelectorAll('[data-esdel]').forEach(q=>q.onclick=()=>{
+    const id=q.dataset.esdel,q2=S.sets.find(x=>x.id===id);
+    if(q2){const blk2=S.session&&S.session.blocks.find(z=>z.ex===q2.ex);
+      if(blk2&&blk2.logged>0)blk2.logged--}
+    S.del=(S.del||[]).concat([{id,ts:Date.now()}]);
+    S.sets=S.sets.filter(x=>x.id!==id);
+    closeSheet();save();render();toast('Set removed.')});
+
   const b=cur();
   document.querySelectorAll('[data-step]').forEach(q=>q.onclick=()=>{const k=q.dataset.step,c=cur();if(!c)return;
     const step=weightStep(c.ex);
@@ -3151,6 +3268,20 @@ function wire(){
     const b2=S.session.blocks[i];
     b2.ex=exId;b2.weight=suggest(exId);b2.rest=null;
     hap(10);save();closeSheet();render();toast('Swapped for '+byId(exId).n+'.')});
+  document.querySelectorAll('[data-rs]').forEach(q=>q.onclick=()=>{
+    const v=q.dataset.rs,k=v.slice(1),g=sessRest();
+    g[k]=Math.max(15,Math.min(600,g[k]+(v[0]==='+'?15:-15)));save();openSheet(restSheet());render()});
+  document.querySelectorAll('[data-rx]').forEach(q=>q.onclick=()=>{
+    const v=q.dataset.rx,k=v.slice(1),c=cur();if(!c)return;
+    c.rest=c.rest||{};
+    c.rest[k]=Math.max(15,Math.min(600,blockRest(c,k)+(v[0]==='+'?15:-15)));
+    save();openSheet(restSheet());render()});
+  document.querySelectorAll('[data-rxclear]').forEach(q=>q.onclick=()=>{
+    const c=cur();if(c)c.rest=null;save();openSheet(restSheet());render()});
+  document.querySelectorAll('[data-settype]').forEach(q=>q.onclick=()=>{
+    const b2=cur();if(!b2)return;
+    b2.nextType=q.dataset.settype;hap(6);save();openSheet(adjustSheet(S.session.idx));render()});
+  document.querySelectorAll('[data-rpe]').forEach(q=>q.onclick=()=>setRPE(+q.dataset.rpe));
   const bm=el('bMain');if(bm)bm.onclick=()=>{
     const st=timerState();
     if(st.mode==='set')finishSet();
@@ -3423,7 +3554,7 @@ function wire(){
 }
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;pickFor=null;render()});
 
-const SCHEMA=5;
+const SCHEMA=6;
 /* Migrations run in order and each bumps the version, so a stored document of
    any age converges on the current shape. A document from a NEWER build is
    left alone and flagged, rather than being silently mangled. */
@@ -3436,7 +3567,8 @@ const MIGRATIONS={
   4:d=>{(d.plans||[]).forEach(p=>{if(!p.doneDays)p.doneDays=[];
       if(p.lastIdx===undefined)p.lastIdx=null})},
   5:d=>{(d.sets||[]).forEach(q=>{if(!q.type)q.type=q.warm?'warm':'work';delete q.warm});
-      d.notes=d.notes||{}}
+      d.notes=d.notes||{}},
+  6:d=>{/* rpe is optional on every set; nothing to backfill */}
 };
 function migrate(d){
   const from=d.schema||0;
