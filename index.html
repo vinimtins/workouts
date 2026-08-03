@@ -308,6 +308,88 @@ nav .ic{font-size:15px;line-height:1}
 .swipe-del{position:absolute;right:0;top:0;bottom:0;width:96px;background:#C8382F;color:#fff;
   font-family:"Barlow Condensed",sans-serif;font-size:14px;letter-spacing:.1em;text-transform:uppercase;
   text-align:center;z-index:0}
+.alt{display:block;font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;
+  font-weight:400;color:var(--mute);letter-spacing:0;margin-top:1px}
+.alt-inline{color:var(--mute);font-size:.86em;font-weight:400}
+.linkish{color:var(--rest);text-decoration:underline;padding:0;font:inherit;background:none}
+/* ---- player: session header ---- */
+.sess-hdr{display:flex;gap:13px;align-items:center;padding:2px 4px 14px}
+.ring{position:relative;flex:0 0 52px;height:52px}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;
+  font-family:"Barlow Condensed",sans-serif;font-size:14px}
+.sess-hdr .meta{flex:1;min-width:0}
+.sess-hdr .t1{font-family:"Barlow Condensed",sans-serif;font-size:18px;text-transform:uppercase;
+  letter-spacing:.05em;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sess-hdr .t2{font-size:12.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sess-hdr .clk{font-family:"Barlow Condensed",sans-serif;font-size:16px;color:var(--mute);
+  padding:10px 4px;min-height:44px;flex:0 0 auto}
+.sess-hdr .clk.held{color:var(--rest)}
+
+/* ---- player: now playing ---- */
+.now{background:linear-gradient(168deg,var(--steel) 0%,#131820 100%);
+  border:1px solid var(--line);border-radius:20px;padding:18px 16px;position:relative;overflow:hidden;
+  transition:border-color .3s ease}
+.now.resting{border-color:rgba(75,159,225,.5)}
+.now.held{opacity:.6}
+.now .prog{position:absolute;left:0;top:0;height:3px;background:var(--rest);transition:width .95s linear}
+.now .art{width:110px;height:96px;float:right;margin:-2px -2px 6px 12px;background:#fff;
+  border-radius:14px;display:grid;place-items:center;overflow:hidden}
+.now .art svg,.now .art img{width:100%;height:100%;object-fit:contain}
+.now .track{font-family:"Barlow Condensed",sans-serif;font-size:clamp(21px,6vw,26px);
+  text-transform:uppercase;letter-spacing:.03em;line-height:1.05;margin-bottom:2px}
+.now .sub{font-size:12.5px;color:var(--mute)}
+.now .stats{display:flex;gap:20px;margin-top:13px;clear:both}
+.now .stat b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:22px;line-height:1.1}
+.now .stat i{font-style:normal;font-size:14px;color:var(--mute)}
+.now .stat span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);
+  font-family:"Barlow Condensed",sans-serif}
+
+/* ---- player: timer with inline adjust ---- */
+.timer{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px 0 2px}
+.adj{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);color:var(--mute);
+  display:grid;place-items:center;font-size:23px;line-height:1;flex:0 0 46px;background:transparent}
+.adj:active{background:var(--steel-2);color:var(--chalk)}
+.adj[disabled]{opacity:.22}
+.big{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:clamp(54px,17vw,66px);
+  line-height:.86;letter-spacing:-.02em;min-width:150px;text-align:center}
+.big.rest{color:var(--rest)}
+.big.paused{color:var(--mute)}
+.mode{text-align:center;font-family:"Barlow Condensed",sans-serif;font-size:11.5px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:26px}
+.mode.rest{color:var(--rest)}
+
+/* ---- player: transport ---- */
+.transport{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tbtn{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  background:var(--steel-2);color:var(--chalk);flex:0 0 52px;position:relative}
+.tbtn svg{width:20px;height:20px;fill:currentColor}
+.tbtn.stop{color:#E8998F}
+.tbtn[disabled]{opacity:.3}
+.tbtn:active{transform:scale(.94)}
+.tbtn small{position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);
+  font-family:"Barlow Condensed",sans-serif;font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mute);white-space:nowrap}
+.tbtn.play{width:64px;height:64px;flex:0 0 64px;background:var(--signal);color:#12151A}
+.tbtn.play.blue{background:var(--rest);color:#0B1620}
+.tbtn.play svg{width:26px;height:26px}
+
+/* ---- player: queue ---- */
+.qrow{display:flex;align-items:center;gap:10px;padding:9px 4px;border-radius:14px;
+  transition:background .15s ease}
+.qrow.rest-row{opacity:.55}
+.qart{flex:0 0 42px;height:38px;background:#fff;border-radius:9px;overflow:hidden;display:grid;place-items:center}
+.qart svg,.qart img{width:100%;height:100%;object-fit:contain}
+.qdot{flex:0 0 42px;height:38px;display:grid;place-items:center;color:var(--rest)}
+.qbody{flex:1;min-width:0}
+.qbody .a{font-family:"Barlow Condensed",sans-serif;font-size:15.5px;text-transform:uppercase;
+  letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qbody .b{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qacts{display:flex;flex:0 0 auto}
+.qacts button{width:33px;height:44px;display:grid;place-items:center;color:var(--mute);border-radius:8px}
+.qacts button svg{width:16px;height:16px;fill:currentColor}
+.qacts button:active{background:var(--steel-2);color:var(--chalk)}
+.qtime{font-family:"Barlow Condensed",sans-serif;color:var(--mute);font-size:14px;flex:0 0 auto;padding-left:2px}
 .flexb{flex:1}
 .btn.danger{background:#C8382F;color:#fff}
 .chip.flex{flex:1;text-align:center;padding:9px 0}
@@ -1333,6 +1415,33 @@ function exStations(id){
   if(x.eq==='Kettlebell')out.push('kb');
   return [...new Set(out)]}
 
+/* Weights are stored in whatever unit the plates are marked in, because that
+   is what you physically load. The other unit is a display-only conversion,
+   rounded to a sensible precision rather than to six decimal places.       */
+const LB_PER_KG=2.2046226218;
+const other=u=>u==='kg'?'lb':'kg';
+function conv(v,from,to){
+  if(v==null||!isFinite(v))return null;
+  if(from===to)return +v;
+  const x=from==='kg'?v*LB_PER_KG:v/LB_PER_KG;
+  /* Always one decimal, trailing zero stripped. A 100 lb threshold looked
+     tidier but lost real precision: 62.5 kg is 137.8 lb, and rounding that
+     to 138 reads back as 62.6 kg. */
+  return +(Math.round(x*10)/10)}
+/* primary reading, with the conversion appended when dual display is on */
+function wt(v,opts){
+  const g=G(),u=g.unit;
+  if(v==null||v==='')return '';
+  const main=`${+(+v).toFixed(2)} ${u}`;
+  if(!S.dualUnit)return main;
+  const alt=conv(v,u,other(u));
+  return (opts&&opts.stacked)
+    ? `${main}<span class="alt">${alt} ${other(u)}</span>`
+    : `${main} <span class="alt-inline">(${alt} ${other(u)})</span>`}
+/* bare number in the other unit, for compact rows */
+const wtAlt=v=>{const g=G();return S.dualUnit&&v!=null
+  ? `<span class="alt-inline">${conv(v,g.unit,other(g.unit))} ${other(g.unit)}</span>`:''};
+
 const GEAR_DEFAULT={unit:'kg',bar:20,plates:{},db:{min:2.5,max:40,step:2.5},st:{},set:false};
 const G=()=>{if(!S.gear)S.gear=JSON.parse(JSON.stringify(GEAR_DEFAULT));return S.gear};
 const PRESETS={
@@ -1375,8 +1484,9 @@ function barSVG(total){
   const pl=a=>a.map(sz=>`<div class="plate" style="height:${h(sz)}px;background:${PCOL[String(sz)]||'#7A828E'}"></div>`).join('');
   const note=L.left>0?`${L.left} ${g.unit} short, closest you can load`
     :(L.plates.length?L.plates.join(' + ')+' per side':'empty bar');
+  const tot=S.dualUnit?` · ${conv(total,g.unit,other(g.unit))} ${other(g.unit)} total`:'';
   return `<div class="bar"><div class="sleeve"></div>${pl(L.plates.slice().reverse())}<div class="knurl"></div>${pl(L.plates)}<div class="sleeve"></div></div>
-    <div class="bar-cap">${esc(note)}</div>`}
+    <div class="bar-cap">${esc(note)}${tot}</div>`}
 
 /* ---- the Gear screen ---- */
 function vSettings(){
@@ -1424,7 +1534,15 @@ function vGear(){
         <div class="seg"><button data-gunit="kg" aria-pressed="${g.unit==='kg'}">kg</button>
         <button data-gunit="lb" aria-pressed="${g.unit==='lb'}">lb</button></div></div>
     </div>
-    <div class="small mute" style="margin-top:9px">A standard 1-inch bar is usually 7 to 10 kg. An Olympic bar is 20 kg.</div>
+    <div class="hr"></div>
+    <button class="item" id="dualtog">
+      <span class="tick ${S.dualUnit?'on':''}">${S.dualUnit?'\u2713':''}</span>
+      <span class="body"><span class="t">Show both units</span>
+      <span class="small mute">${S.dualUnit
+        ? `Weights appear as ${G().unit} with ${other(G().unit)} alongside`
+        : 'Add a converted reading next to every weight'}</span></span></button>
+    <div class="small mute" style="margin-top:9px">A standard 1-inch bar is usually 7 to 10 kg. An Olympic bar is 20 kg.
+      Loading is always in ${G().unit}, since that is what your plates are marked in.</div>
   </div>
 
   <div class="card">
@@ -1592,6 +1710,7 @@ function finishSet(){
   S.sets.push({id:uid(),date:today(),ex:b.ex,reps:b.reps,type:ty,
     weight:b.weight,dur:Math.round(st.t),ts:tnow(),note:b.pendingNote||''});
   b.pendingNote='';
+  s.lastLog=`${b.weight?wt(b.weight)+' × ':''}${b.reps}`;
   if(SETTYPE[ty].counts)b.logged++;
   const wasDrop=ty==='drop';
   b.nextType='work';
@@ -1648,10 +1767,17 @@ clearInterval(elapsedTick);elapsedTick=setInterval(paintElapsed,1000);
 function cur(){return S.session?S.session.blocks[S.session.idx]:null}
 function sessionGroups(){if(!S.session)return '';
   return [...new Set(S.session.blocks.map(b=>byId(b.ex).g))].join('<br>')}
+/* Move to the next lift in the order the session was written. It only ever
+   moves FORWARD: silently jumping backwards to a lift left a set short is
+   disorienting mid-workout, and doing fewer sets than planned is a normal
+   decision rather than an error to be corrected. Anything skipped is still
+   visible in the token row and reachable by tapping it. */
 function advance(){const s=S.session;
   const next=s.blocks.findIndex((b,i)=>i>s.idx&&b.logged<b.target);
-  s.idx=next>-1?next:s.blocks.findIndex(b=>b.logged<b.target);
-  if(s.idx<0)s.idx=s.blocks.length-1}
+  if(next>-1){s.idx=next;return}
+  /* nothing incomplete ahead: sit on the last lift rather than wrapping */
+  const lastIncomplete=s.blocks.reduce((a,b,i)=>b.logged<b.target?i:a,-1);
+  s.idx=lastIncomplete>s.idx?lastIncomplete:s.blocks.length-1}
 
 const sessionRunning=()=>!!(S.session&&S.session.runningSince);
 function sessionElapsed(){const s=S.session;if(!s)return 0;
@@ -1772,7 +1898,7 @@ function planWk(){
           <span class="body"><span class="t">${esc(x.n)}</span>
             <span class="small mute">${blkSets(p,b)} × ${repTxt(b)}${b.sets?'':' · auto'}${
               last?` · last ${last.sets.map(q=>(q.weight?q.weight+'×':'')+q.reps).slice(0,3).join(', ')}`
-                 :suggest(b.ex)?` · start ${suggest(b.ex)} ${G().unit}`:''}</span></span>
+                 :suggest(b.ex)?` · start ${wt(suggest(b.ex))}`:''}</span></span>
           <span class="arw">›</span></button>`}).join('')}
       <div class="hr"></div>
       <button class="btn ${isNext?'':'ghost'}" data-startday="${p.id}:${planView}">Start ${esc(d.k)} now</button>`
@@ -2035,135 +2161,120 @@ function vWorkout(){
 
   const b=cur(),x=byId(b.ex),w=findWk(s.wk);
   const st=timerState(),held=!sessionRunning(),m=s.tm;
-  const nx=s.blocks.find((q,i)=>i>s.idx&&q.logged<q.target);
   const allDone=s.blocks.every(q=>q.logged>=q.target);
-  const lastLift=!s.blocks.some((q,i)=>i!==s.idx&&q.logged<q.target);
   const setNo=Math.min(b.logged+1,b.target);
-  const restBetween=b.logged>=b.target?'ex':'set';
+  const resting=st.mode==='rest';
+  const doneSets=s.blocks.reduce((a,q)=>a+q.logged,0);
+  const totSets=s.blocks.reduce((a,q)=>a+q.target,0);
+  const pct=totSets?Math.round(doneSets/totSets*100):0;
+  const C=2*Math.PI*22;
 
   return `
-  <div class="hero ${st.mode==='rest'?'resting':''} ${held?'held':''}">
-    ${st.mode==='rest'?`<div class="ring" id="ring" style="width:${st.total?st.t/st.total*100:0}%"></div>`:''}
-    <div class="row spread">
-      <div style="flex:1;min-width:0">
-        <div class="exname">${esc(x.n)}</div>
-        <div class="tag" style="margin-top:3px">${esc(x.g)} · ${esc(x.eq)} · set ${setNo} of ${b.target}</div>
+  <div class="sess-hdr">
+    <div class="ring">
+      <svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true">
+        <circle cx="26" cy="26" r="22" fill="none" stroke="var(--line)" stroke-width="5"/>
+        <circle cx="26" cy="26" r="22" fill="none" stroke="var(--signal)" stroke-width="5"
+          stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C*(1-pct/100)).toFixed(1)}"/>
+      </svg><b class="num">${pct}%</b>
+    </div>
+    <div class="meta">
+      <div class="t1">${esc(s.name||'Session')}</div>
+      <div class="t2">${new Date(s.start).toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'short'})}${
+        w?` · week ${planDay(w).week} of ${w.weeks}`:''}</div>
+    </div>
+    <button class="clk num ${sessionRunning()?'':'held'}" id="sesspause" title="Pause the session clock">
+      <span id="elapsed">0:00</span></button>
+  </div>
+
+  <div class="now ${resting?'resting':''} ${held?'held':''}">
+    ${resting&&st.total?`<div class="prog" style="width:${(1-st.t/st.total)*100}%"></div>`:''}
+    <div class="art">${figure(x.id,'front')}</div>
+    <div class="track">${esc(x.n)}</div>
+    <div class="sub">${resting&&s.lastLog?`Just logged · ${esc(s.lastLog)}`
+      :`${esc(x.g)} · ${esc(x.also||x.eq)}`}</div>
     ${exNote(x.id)?`<div class="exnote">${esc(exNote(x.id))}</div>`:''}
     ${b.pendingNote?`<div class="exnote pending">Next set: ${esc(b.pendingNote)}</div>`:''}
-      </div>
-      <button class="pill" id="notebtn">${exNote(x.id)?'Note':'+ Note'}</button>
-      <button class="pill" data-ex="${x.id}">How to</button>
+
+    <div class="stats">
+      <div class="stat"><b class="num">${setNo}<i> / ${b.target}</i></b><span>Set</span></div>
+      <div class="stat"><b class="num">${b.weight||'—'}<i> ${b.weight?G().unit:''}</i></b>
+        <span>${b.weight&&S.dualUnit?conv(b.weight,G().unit,other(G().unit))+' '+other(G().unit):'Weight'}</span></div>
+      <div class="stat"><b class="num">${b.reps}${b.reps>30?'s':''}</b><span>Reps</span></div>
     </div>
 
-    <div class="clock ${st.mode==='rest'?'rest':''}">
-      <div>
-        <div class="t num" id="clockval">${mmss(st.t)}</div>
-        <div class="mode ${st.mode==='rest'?'rest':''}">${held?'On hold'
-          :m&&m.paused?'Paused'
-          :st.mode==='set'?'Working'
-          :st.mode==='rest'?`Resting · ${restBetween==='ex'?'next lift':'next set'}`
-          :'Ready'}</div>
-      </div>
-      <div class="side">
-        <div class="lbl" style="margin:0">Weight</div>
-        <div class="big num">${b.weight?b.weight+' '+G().unit:'body'}</div>
-        <div class="lbl" style="margin:8px 0 0">Target</div>
-        <div class="big num">${b.reps}${b.reps>30?'s':''}</div>
-      </div>
+    <div class="timer">
+      <button class="adj" id="tminus" ${resting?'':'disabled'} aria-label="Less rest">−</button>
+      <div class="big num ${resting?'rest':''} ${m&&m.paused?'paused':''}" id="clockval">${mmss(st.t)}</div>
+      <button class="adj" id="tplus" ${resting?'':'disabled'} aria-label="More rest">+</button>
     </div>
+    <div class="mode ${resting?'rest':''}">${held?'Session on hold'
+      :m&&m.paused?'Paused'
+      :st.mode==='set'?'Working'
+      :resting?(b.logged>=b.target?'Resting · next lift':'Resting · next set')
+      :'Ready'}</div>
 
-    ${held?`<div style="margin-top:14px"><button class="btn blue" id="heroresume">Resume session</button></div>`
-    :`<div class="ctl">
-      <button class="btn ghost slim" id="pause" ${m?'':'disabled style="opacity:.4"'}>${m&&m.paused?'Resume':'Pause'}</button>
-      ${st.mode==='set'
-        ?'<button class="btn wide" id="finish">Finish set</button>'
-        :st.mode==='rest'
-        ?'<button class="btn blue wide" id="skip">Skip rest, start set</button>'
-        :`<button class="btn wide" id="begin">Start set ${setNo}</button>`}
-      <button class="btn ghost slim" id="${allDone?'endsess3':'stop'}" ${!allDone&&!m?'disabled style="opacity:.4"':''}>${allDone?'End':'Reset'}</button>
+    ${held?`<button class="btn blue" id="heroresume" style="margin-top:4px">Resume session</button>`
+    :`<div class="transport">
+      <button class="tbtn" id="bPrev" ${s.idx?'':'disabled'}>
+        <svg viewBox="0 0 24 24"><path d="M6 6h2.5v12H6zM20 6v12l-9-6z"/></svg><small>Prev</small></button>
+      <button class="tbtn" id="bPause" ${m?'':'disabled'}>
+        <svg viewBox="0 0 24 24">${m&&m.paused?'<path d="M8 5v14l11-7z"/>':'<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>'}</svg>
+        <small>${m&&m.paused?'Resume':'Pause'}</small></button>
+      <button class="tbtn play ${resting?'blue':''}" id="bMain" aria-label="${st.mode==='set'?'Finish set':'Start set'}">
+        <svg viewBox="0 0 24 24">${st.mode==='set'
+          ?'<path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>'
+          :'<path d="M8 5v14l11-7z"/>'}</svg></button>
+      <button class="tbtn stop" id="bSkipLift">
+        <svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg><small>Skip lift</small></button>
+      <button class="tbtn" id="bAdjust">
+        <svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm9.4 4a7.4 7.4 0 01-.1 1.2l2 1.6-1.9 3.3-2.4-1a7.5 7.5 0 01-2 1.2l-.4 2.6h-3.8l-.4-2.6a7.5 7.5 0 01-2-1.2l-2.4 1L2.7 14.8l2-1.6A7.4 7.4 0 014.6 12c0-.4 0-.8.1-1.2l-2-1.6 1.9-3.3 2.4 1a7.5 7.5 0 012-1.2l.4-2.6h3.8l.4 2.6c.7.3 1.4.7 2 1.2l2.4-1 1.9 3.3-2 1.6c.1.4.1.8.1 1.2z"/></svg>
+        <small>Adjust</small></button>
     </div>
-    ${st.mode==='rest'?`<div class="row tight" style="margin-top:9px">
-      <button class="chip flex" data-bump="-30">−30s</button>
-      <button class="chip flex" data-bump="-10">−10s</button>
-      <button class="chip flex" data-bump="10">+10s</button>
-      <button class="chip flex" data-bump="30">+30s</button>
-    </div>`:''}
-    ${allDone?`<div style="height:9px"></div>
-      <button class="btn blue wide" id="endsess2" style="width:100%">Everything done · finish session</button>`:''}
-    <div class="row spread" style="margin-top:10px">
-      <button class="chip" id="autotog" aria-pressed="${S.autoNext!==false}">
-        ${S.autoNext!==false?'Auto next set':'Wait after rest'}</button>
-      <button class="chip" id="typetog" aria-pressed="${(b.nextType||'work')!=='work'}">${SETTYPE[b.nextType||'work'].n}</button>
-      <button class="chip" id="restedit">Rest ${blockRest(b,'set')}s / ${blockRest(b,'ex')}s</button>
+    <div class="row tight" style="margin-top:8px">
+      <button class="chip flex" id="typetog" aria-pressed="${(b.nextType||'work')!=='work'}">${SETTYPE[b.nextType||'work'].n}</button>
+      <button class="chip flex" id="notebtn">${exNote(x.id)||b.pendingNote?'Notes ·':'Note'}</button>
+      <button class="chip flex" data-ex="${x.id}">How to</button>
     </div>`}
-
-    <div class="hr"></div>
-    <div class="row">
-      <div class="field"><span class="lbl">Weight ${G().unit}</span>
-        <div class="stepper"><button data-step="w-" aria-label="Less weight">−</button>
-        <input id="w" type="number" inputmode="decimal" step="${weightStep(b.ex)}" value="${b.weight}">
-        <button data-step="w+" aria-label="More weight">+</button></div></div>
-      <div class="field"><span class="lbl">Reps</span>
-        <div class="stepper"><button data-step="r-" aria-label="Fewer reps">−</button>
-        <input id="r" type="number" inputmode="numeric" value="${b.reps}">
-        <button data-step="r+" aria-label="More reps">+</button></div></div>
-    </div>
-    ${x.bar?`<div class="hr"></div>${barSVG(b.weight)}`:''}
   </div>
 
-  <div class="card">
-    <div class="row spread"><span class="lbl" style="margin:0">Up next</span>
-      <span class="pill">${s.blocks.filter(q=>q.logged>=q.target).length}/${s.blocks.length} done</span></div>
-    ${nx?`<div class="row spread" style="margin-top:6px"><div>
-      <div style="font-size:16px">${esc(byId(nx.ex).n)}</div>
-      <div class="small mute">${nx.target} × ${nx.reps}${nx.reps>30?'s':' reps'}</div></div>
-      <div style="text-align:right"><div class="lbl" style="margin:0">Last</div>
-      <div class="num">${suggest(nx.ex)?suggest(nx.ex)+' '+G().unit:'body'}</div></div></div>`
-    :`<div class="empty" style="padding:4px 0">${allDone?'Every lift done. Finish below.':'Last lift of the session.'}</div>`}
-    <div style="height:10px"></div>
-    <div class="tokens">${s.blocks.map((q,i)=>`<button class="tok ${q.logged>=q.target?'done':''} ${i===s.idx?'now':''}"
-      data-k="tok-${i}" data-go="${i}" aria-label="${esc(byId(q.ex).n)}">${i+1}</button>`).join('')}</div>
-  </div>
+  ${allDone?`<div style="height:12px"></div>
+    <button class="btn blue" id="endsess2">Everything done · finish session</button>`:''}
 
-  <div class="card">
-    <div class="row spread"><span class="lbl" style="margin:0">${esc(x.n)}</span>
-      <span class="pill">${S.sets.filter(q=>q.date===today()&&q.ex===b.ex).length} today</span></div>
-    ${(()=>{const prev=lastSessionFor(b.ex);
-      return prev?`<div class="small mute" style="margin:4px 0 8px">Last time, ${rel(prev.d)}:
-        <span class="num">${prev.sets.map(q=>(q.weight?q.weight+'×':'')+q.reps).join(', ')}</span></div>`
-      :'<div class="small mute" style="margin:4px 0 8px">First time logging this lift.</div>'})()}
-    ${S.sets.filter(q=>q.date===today()&&q.ex===b.ex).map((q,i)=>{
-      const p2=lastSessionFor(b.ex),ref=p2&&p2.sets[i];
-      const better=ref&&(q.weight*q.reps)>(ref.weight*ref.reps);
-      const t=stype(q);
-      return `<div class="swipe-row" data-k="set-${q.id}" data-swipe="${q.id}">
-      <button class="swipe-del" data-esdel="${q.id}" aria-label="Delete set">Delete</button>
-      <button class="item swipe-face" data-editset="${q.id}">
-      <span class="stag ${t.k}">${t.s||(i+1)}</span>
-      <span class="body"><span class="t num">${q.weight?q.weight+' '+G().unit+' × ':''}${q.reps}</span>
-      ${q.note?`<span class="small mute">${esc(q.note)}</span>`
-        :ref?`<span class="small mute">was ${(ref.weight?ref.weight+'×':'')+ref.reps}</span>`:''}</span>
-      ${better?'<span class="pill on">up</span>':''}
-      <span class="arw">›</span></button></div>`}).join('')
-    ||'<div class="empty">No sets logged for this lift yet.</div>'}
-  </div>
+  ${(()=>{const today2=S.sets.filter(q=>q.date===today()&&q.ex===b.ex);
+    const prev=lastSessionFor(b.ex);
+    if(!today2.length&&!prev)return '';
+    return `<div class="card" style="margin-top:14px">
+      <div class="row spread"><span class="lbl" style="margin:0">${esc(x.n)}</span>
+        <span class="pill">${today2.length} today</span></div>
+      ${prev?`<div class="small mute" style="margin:4px 0 8px">Last time, ${rel(prev.d)}:
+        <span class="num">${prev.sets.map(q=>(q.weight?q.weight+'×':'')+q.reps).join(', ')}</span></div>`:''}
+      ${today2.map((q,i)=>{const t=stype(q),ref=prev&&prev.sets[i];
+        const better=ref&&(q.weight*q.reps)>(ref.weight*ref.reps);
+        return `<div class="swipe-row" data-k="set-${q.id}" data-swipe="${q.id}">
+          <button class="swipe-del" data-esdel="${q.id}" aria-label="Delete set">Delete</button>
+          <button class="item swipe-face" data-editset="${q.id}">
+            <span class="stag ${t.k}">${t.s||(i+1)}</span>
+            <span class="body"><span class="t num">${q.weight?wt(q.weight)+' × ':''}${q.reps}</span>
+            ${q.note?`<span class="small mute">${esc(q.note)}</span>`
+              :ref?`<span class="small mute">was ${(ref.weight?ref.weight+'×':'')+ref.reps}</span>`:''}</span>
+            ${better?'<span class="pill on">up</span>':''}
+            <span class="arw">›</span></button></div>`}).join('')}
+    </div>`})()}
 
-  <div class="card">
-    <div class="sess-grid">
-      <div><div class="k">${esc(s.name||'Session')}</div>
-        <div class="v mute">Started ${new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div></div>
-      <div class="groups">${sessionGroups()}</div>
-    </div>
-    <div class="hr"></div>
-    <div class="row spread"><span class="lbl" style="margin:0">Total elapsed</span>
-      <button class="btn ghost slim" id="sesspause">${sessionRunning()?'Pause session':'Resume session'}</button></div>
-    <div class="elapsed ${sessionRunning()?'':'held'}" id="elapsed">0:00</div>
-    <div class="row" style="gap:24px;margin-top:12px">
+  <div class="hr" style="margin:16px 4px"></div>
+  <div class="row spread" style="padding:0 4px 2px">
+    <span class="lbl" style="margin:0">Up next</span>
+    <span class="lbl" style="margin:0">${s.blocks.filter(q=>q.logged>=q.target).length}/${s.blocks.length} lifts done</span>
+  </div>
+  ${queueRows(s)}
+
+  <div class="card" style="margin-top:16px">
+    <div class="row" style="gap:24px">
       <div class="stat"><b class="num">${Math.round(vol(S.sets.filter(q=>q.date===today()))).toLocaleString()}</b><span>${G().unit} volume</span></div>
       <div class="stat"><b class="num">${S.sets.filter(q=>q.date===today()).length}</b><span>sets today</span></div>
+      <div class="stat"><b class="num">${hhmm(sessionElapsed())}</b><span>elapsed</span></div>
     </div>
-    <div class="hr"></div>
-    ${dayStrip(21)}
     <div class="hr"></div>
     <button class="btn ${allDone?'':'ghost'}" id="endsess">Finish session</button>
     <div style="height:9px"></div>
@@ -2172,6 +2283,51 @@ function vWorkout(){
     <button class="btn ghost slim" id="addmore" style="width:100%">Add another exercise</button>
   </div>`;
 }
+
+/* ---- the queue: rest is an item, not a mode ---- */
+const QI={
+ rest:'<path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10.6V6h-2v7.4l5 3 1-1.7z"/>',
+ dup:'<path d="M15 1H4a2 2 0 00-2 2v12h2V3h11zm4 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11z"/>',
+ gear:'<path d="M12 8a4 4 0 100 8 4 4 0 000-8zm9.4 4a7.4 7.4 0 01-.1 1.2l2 1.6-1.9 3.3-2.4-1a7.5 7.5 0 01-2 1.2l-.4 2.6h-3.8l-.4-2.6a7.5 7.5 0 01-2-1.2l-2.4 1L2.7 14.8l2-1.6A7.4 7.4 0 014.6 12c0-.4 0-.8.1-1.2l-2-1.6 1.9-3.3 2.4 1a7.5 7.5 0 012-1.2l.4-2.6h3.8l.4 2.6c.7.3 1.4.7 2 1.2l2.4-1 1.9 3.3-2 1.6c.1.4.1.8.1 1.2z"/>',
+ trash:'<path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"/>',
+ swap:'<path d="M7 7h9l-2.5-2.5L15 3l5 5-5 5-1.5-1.5L16 9H7zM17 17H8l2.5 2.5L9 21l-5-5 5-5 1.5 1.5L8 15h9z"/>'
+};
+function restItem(what,secs){
+  return `<div class="qrow rest-row"><div class="qdot">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">${QI.rest}</svg></div>
+    <div class="qbody"><div class="a">Rest</div><div class="b">${esc(what)}</div></div>
+    <div class="qtime num">${mmss(secs)}</div></div>`}
+function liftItem(q,i,detail){
+  const x=byId(q.ex);
+  return `<div class="qrow" data-k="q-${i}-${q.ex}">
+    <div class="qart">${figure(q.ex,'front')}</div>
+    <div class="qbody"><div class="a">${esc(x.n)}</div><div class="b">${esc(detail)}</div></div>
+    <div class="qacts">
+      <button data-qdup="${i}" aria-label="Duplicate"><svg viewBox="0 0 24 24">${QI.dup}</svg></button>
+      <button data-qcfg="${i}" aria-label="Adjust"><svg viewBox="0 0 24 24">${QI.gear}</svg></button>
+      <button data-qdel="${i}" aria-label="Remove"><svg viewBox="0 0 24 24">${QI.trash}</svg></button>
+      <button data-qswap="${i}" aria-label="Swap"><svg viewBox="0 0 24 24">${QI.swap}</svg></button>
+    </div></div>`}
+function queueRows(s){
+  const out=[],b=s.blocks[s.idx];
+  for(let n=b.logged+1;n<b.target;n++){
+    out.push(restItem('Between sets',blockRest(b,'set')));
+    out.push(liftItem(b,s.idx,`Set ${n+1} of ${b.target} · ${wt(b.weight)} · ${b.reps} reps`));
+  }
+  for(let i=s.idx+1;i<s.blocks.length;i++){
+    const q=s.blocks[i];
+    if(q.logged>=q.target)continue;
+    out.push(restItem('Moving to the next lift',blockRest(b,'ex')));
+    out.push(liftItem(q,i,`${q.target-q.logged} sets · ${q.reps} reps${q.weight?' · '+wt(q.weight):''}`));
+  }
+  return out.join('')||'<div class="empty" style="padding:8px 4px">Nothing left in the queue.</div>'}
+
+/* skip every remaining set of the current lift and land on the next one */
+function skipLift(){
+  const s=S.session;if(!s)return;
+  const next=s.blocks.findIndex((q,i)=>i>s.idx&&q.logged<q.target);
+  if(next<0){toast('That was the last lift.');return}
+  s.idx=next;clearTimer();hap(8);save();render()}
 
 function parkedCard(){const p=S.parked;if(!p)return '';
   const done=(p.blocks||[]).filter(q=>q.logged>=q.target).length;
@@ -2774,6 +2930,56 @@ function daySheet(d){
    ${Object.entries(m).map(([id,l])=>`<div class="item"><span class="body"><span class="t">${esc(byId(id).n)}</span>
     <span class="small mute num">${l.map(s=>(s.weight?s.weight+' kg × ':'')+s.reps).join(' · ')}</span></span></div>`).join('')}`
   :`<div class="empty" style="margin-top:10px">Rest day. Nothing logged.</div>`}`}
+function adjustSheet(i){
+  const q=(S.session&&S.session.blocks[i]);if(!q)return '';
+  const x=byId(q.ex),step=weightStep(q.ex);
+  return `<div class="row spread"><h2 style="font-size:20px;color:var(--chalk)">${esc(x.n)}</h2>
+    <button class="pill" data-close>Close</button></div>
+  <div class="small mute" style="margin:8px 0 14px">Changes apply to the rest of this session.</div>
+  <div class="field"><span class="lbl">Weight ${G().unit}${S.dualUnit?` · ${conv(q.weight,G().unit,other(G().unit))} ${other(G().unit)}`:''}</span>
+    <div class="stepper"><button data-aw="-${i}">−</button>
+    <input class="num" style="pointer-events:none" value="${q.weight}" readonly>
+    <button data-aw="+${i}">+</button></div>
+    <div class="small mute" style="margin-top:5px">Steps of ${step} ${G().unit}, from your equipment</div></div>
+  <div class="field"><span class="lbl">Reps</span>
+    <div class="stepper"><button data-ar="-${i}">−</button>
+    <input class="num" style="pointer-events:none" value="${q.reps}" readonly>
+    <button data-ar="+${i}">+</button></div></div>
+  <div class="field"><span class="lbl">Sets · ${q.logged} done</span>
+    <div class="stepper"><button data-as="-${i}">−</button>
+    <input class="num" style="pointer-events:none" value="${q.target}" readonly>
+    <button data-as="+${i}">+</button></div></div>
+  ${x.bar?`<div class="hr"></div>${barSVG(q.weight)}`:''}
+  <div class="hr"></div>
+  <button class="btn ghost slim" data-qdup="${i}" style="width:100%">Add this lift again, later in the session</button>
+  <div class="hr"></div>
+  <div class="row">
+    <div class="field"><span class="lbl">Rest, sets</span>
+      <div class="stepper"><button data-arx="-set|${i}">−</button>
+      <input class="num" style="pointer-events:none" value="${blockRest(q,'set')}s" readonly>
+      <button data-arx="+set|${i}">+</button></div></div>
+    <div class="field"><span class="lbl">Rest, next lift</span>
+      <div class="stepper"><button data-arx="-ex|${i}">−</button>
+      <input class="num" style="pointer-events:none" value="${blockRest(q,'ex')}s" readonly>
+      <button data-arx="+ex|${i}">+</button></div></div>
+  </div>`}
+
+function swapSheet(i){
+  const q=(S.session&&S.session.blocks[i]);if(!q)return '';
+  const x=byId(q.ex);
+  const alts=EX.filter(e=>e.id!==x.id&&e.g===x.g&&haveEx(e.id)
+    &&!S.session.blocks.some(z=>z.ex===e.id));
+  return `<div class="row spread"><h2 style="font-size:20px;color:var(--chalk)">Swap ${esc(x.n)}</h2>
+    <button class="pill" data-close>Close</button></div>
+  <div class="small mute" style="margin:8px 0 12px">Other ${esc(x.g.toLowerCase())} lifts your gym can do.
+    Sets and reps carry over; the weight resets to what you last used.</div>
+  ${alts.length?alts.map(e=>`<button class="item" data-doswap="${i}|${e.id}">
+    <span class="thumb">${figure(e.id,'front')}</span>
+    <span class="body"><span class="t">${esc(e.n)}</span>
+    <span class="small mute">${esc(e.eq)} · ${esc(e.rep)} reps${suggest(e.id)?` · last ${wt(suggest(e.id))}`:''}</span></span>
+    <span class="arw">›</span></button>`).join('')
+  :'<div class="empty">No alternatives available for this muscle group with your equipment.</div>'}`}
+
 function typeSheet(){
   const b=cur();if(!b)return '';
   const now=b.nextType||'work';
@@ -2811,7 +3017,7 @@ function setSheet(id){
     <button class="pill" data-close>Close</button></div>
   <div class="small mute" style="margin:8px 0 12px">Logged ${new Date(q.ts||Date.now()).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}${q.dur?` · took ${mmss(q.dur)}`:''}</div>
   <div class="row">
-    <div class="field"><span class="lbl">Weight ${G().unit}</span>
+    <div class="field"><span class="lbl">Weight ${G().unit}${S.dualUnit?` · ${conv(q.weight,G().unit,other(G().unit))} ${other(G().unit)}`:''}</span>
       <div class="stepper"><button data-esw="-${id}">−</button>
       <input class="num" style="pointer-events:none" value="${q.weight}" readonly>
       <button data-esw="+${id}">+</button></div></div>
@@ -2917,69 +3123,65 @@ function wire(){
   const w=el('w'),r=el('r');
   if(w)w.onchange=e=>{cur().weight=Math.max(0,+e.target.value||0);save();render()};
   if(r)r.onchange=e=>{cur().reps=Math.max(1,parseInt(e.target.value)||1);save();render()};
-  const g=el('begin');if(g)g.onclick=beginSet;
-  const f=el('finish');if(f)f.onclick=finishSet;
-  const sk=el('skip');if(sk)sk.onclick=()=>{armTimer('set',0);save();render()};
-  const st=el('stop');if(st)st.onclick=stopTimer;
-  const p=el('pause');if(p)p.onclick=()=>{const m=S.session&&S.session.tm;
-    if(!m)return;m.paused?resumeTimer():pauseTimer();render()};
-  const nb=el('notebtn');if(nb)nb.onclick=()=>openSheet(noteSheet());
-  const exn=el('exnote');if(exn)exn.onblur=e=>{setExNote(cur().ex,e.target.value);render()};
-  const stn=el('setnote');if(stn)stn.onblur=e=>{cur().pendingNote=e.target.value.trim();save();render()};
-  document.querySelectorAll('[data-settype]').forEach(q=>q.onclick=()=>{
-    cur().nextType=q.dataset.settype;hap(6);save();closeSheet();render()});
-  document.querySelectorAll('[data-estype]').forEach(q=>q.onclick=()=>{
-    const [t,id]=q.dataset.estype.split('|');
-    const r=S.sets.find(x=>x.id===id);if(!r)return;
-    r.type=t;delete r.warm;r.ts=Date.now();hap(8);save();openSheet(setSheet(id));render()});
-  const esn=el('esnote');if(esn)esn.onblur=e=>{
-    const r=S.sets.find(x=>x.id===e.target.dataset.esnote);
-    if(r){r.note=e.target.value.trim();r.ts=Date.now();save();render()}};
-  document.querySelectorAll('[data-swipe]').forEach(r=>{
-    if(r._sw)return;r._sw=true;swipeable(r)});
-  document.querySelectorAll('[data-bump]').forEach(q=>q.onclick=()=>bumpRest(+q.dataset.bump));
-  document.querySelectorAll('[data-editset]').forEach(q=>q.onclick=()=>openSheet(setSheet(q.dataset.editset)));
-  const editSet=(id,f)=>{const q=S.sets.find(x=>x.id===id);if(!q)return;
-    f(q);q.ts=Date.now();hap(8);save();openSheet(setSheet(id));render()};
-  document.querySelectorAll('[data-esw]').forEach(q=>q.onclick=()=>{
-    const v=q.dataset.esw,id=v.slice(1);
-    editSet(id,r=>{r.weight=Math.max(0,+(r.weight+(v[0]==='+'?weightStep(r.ex):-weightStep(r.ex))).toFixed(2))})});
-  document.querySelectorAll('[data-esr]').forEach(q=>q.onclick=()=>{
-    const v=q.dataset.esr,id=v.slice(1);
-    editSet(id,r=>{r.reps=Math.max(1,r.reps+(v[0]==='+'?1:-1))})});
-  document.querySelectorAll('[data-esdel]').forEach(q=>q.onclick=()=>{
-    const id=q.dataset.esdel,q2=S.sets.find(x=>x.id===id);
-    if(q2){const blk2=S.session&&S.session.blocks.find(z=>z.ex===q2.ex);
-      if(blk2&&blk2.logged>0)blk2.logged--}
-    S.del=(S.del||[]).concat([{id,ts:Date.now()}]);
-    S.sets=S.sets.filter(x=>x.id!==id);
-    closeSheet();save();render();toast('Set removed.')});
-  const wt=el('typetog');if(wt)wt.onclick=()=>openSheet(typeSheet());
-  const re2=el('restedit');if(re2)re2.onclick=()=>openSheet(restSheet());
-  document.querySelectorAll('[data-rs]').forEach(q=>q.onclick=()=>{
-    const v=q.dataset.rs,k=v.slice(1),g=sessRest();
-    g[k]=Math.max(15,Math.min(600,g[k]+(v[0]==='+'?15:-15)));save();openSheet(restSheet());render()});
-  document.querySelectorAll('[data-rx]').forEach(q=>q.onclick=()=>{
-    const v=q.dataset.rx,k=v.slice(1),c=cur();
-    c.rest=c.rest||{};
-    c.rest[k]=Math.max(15,Math.min(600,blockRest(c,k)+(v[0]==='+'?15:-15)));
-    save();openSheet(restSheet());render()});
-  document.querySelectorAll('[data-rxclear]').forEach(q=>q.onclick=()=>{
-    cur().rest=null;save();openSheet(restSheet());render()});
-  const e2=el('endsess2'),e3=el('endsess3');
-  [e2,e3].forEach(b2=>{if(b2)b2.onclick=()=>{
-    if(S.session.blocks.length&&S.sets.some(q=>q.date===today())){S.done++;
-      const p2=findWk(S.session.wk);
-      if(p2&&S.session.dayIdx!=null)markDayDone(p2,S.session.dayIdx)}
-    S.session=null;clearTimer();keepAwake(false);save();render()}});
-  const at2=el('autotog');if(at2)at2.onclick=()=>{
-    S.autoNext=S.autoNext===false;save();render();
-    if(S.autoNext!==false)askNotify()};
-  const sp=el('sesspause');if(sp)sp.onclick=()=>sessionRunning()?pauseSession():resumeSession();
-  const hr=el('heroresume');if(hr)hr.onclick=resumeSession;
-  document.querySelectorAll('[data-go]').forEach(q=>q.onclick=()=>{
+  document.querySelectorAll('[data-qdup]').forEach(q=>q.onclick=e=>{
+    e.stopPropagation();
+    const i=+q.dataset.qdup, s2=S.session, src=s2.blocks[i];
+    if(!src)return;
+    /* A copy sits directly after the original and starts fresh, so it reads as
+       "do this lift again" rather than as extra sets bolted onto the first. */
+    const copy={ex:src.ex,target:src.target,reps:src.reps,weight:src.weight,
+      logged:0,rest:src.rest?Object.assign({},src.rest):null,nextType:'work',pendingNote:''};
+    s2.blocks.splice(i+1,0,copy);
+    hap(10);save();render();
+    toast(`${byId(src.ex).n} added again · ${src.target} more sets`)});
+  const adj=(i,f)=>{const q=S.session.blocks[i];if(!q)return;f(q);hap(8);save();openSheet(adjustSheet(i));render()};
+  document.querySelectorAll('[data-aw]').forEach(q=>q.onclick=()=>{const v=q.dataset.aw,i=+v.slice(1);
+    adj(i,r=>{const st2=weightStep(r.ex);
+      r.weight=Math.max(0,+(r.weight+(v[0]==='+'?st2:-st2)).toFixed(2))})});
+  document.querySelectorAll('[data-ar]').forEach(q=>q.onclick=()=>{const v=q.dataset.ar,i=+v.slice(1);
+    adj(i,r=>{r.reps=Math.max(1,r.reps+(v[0]==='+'?1:-1))})});
+  document.querySelectorAll('[data-as]').forEach(q=>q.onclick=()=>{const v=q.dataset.as,i=+v.slice(1);
+    adj(i,r=>{r.target=Math.max(Math.max(1,r.logged),r.target+(v[0]==='+'?1:-1))})});
+  document.querySelectorAll('[data-arx]').forEach(q=>q.onclick=()=>{
+    const v=q.dataset.arx,sign=v[0],[k,ix]=v.slice(1).split('|');
+    adj(+ix,r=>{r.rest=r.rest||{};
+      r.rest[k]=Math.max(15,Math.min(600,blockRest(r,k)+(sign==='+'?15:-15)))})});
+  document.querySelectorAll('[data-doswap]').forEach(q=>q.onclick=()=>{
+    const [ix,exId]=q.dataset.doswap.split('|'),i=+ix;
+    const b2=S.session.blocks[i];
+    b2.ex=exId;b2.weight=suggest(exId);b2.rest=null;
+    hap(10);save();closeSheet();render();toast('Swapped for '+byId(exId).n+'.')});
+  const bm=el('bMain');if(bm)bm.onclick=()=>{
+    const st=timerState();
+    if(st.mode==='set')finishSet();
+    else if(st.mode==='rest'){armTimer('set',0);save();render()}
+    else beginSet()};
+  const bp=el('bPause');if(bp)bp.onclick=()=>{const m=S.session&&S.session.tm;
+    if(!m)return;m.paused?resumeTimer():pauseTimer();hap(6);render()};
+  const bpr=el('bPrev');if(bpr)bpr.onclick=()=>{
+    if(S.session.idx>0){S.session.idx--;clearTimer();hap(6);save();render()}};
+  const bsl=el('bSkipLift');if(bsl)bsl.onclick=skipLift;
+  const bad=el('bAdjust');if(bad)bad.onclick=()=>openSheet(adjustSheet(S.session.idx));
+  const tm2=el('tminus');if(tm2)tm2.onclick=()=>bumpRest(-15);
+  const tp2=el('tplus');if(tp2)tp2.onclick=()=>bumpRest(15);
+  /* queue row actions */
+  document.querySelectorAll('[data-qcfg]').forEach(q=>q.onclick=e=>{
+    e.stopPropagation();openSheet(adjustSheet(+q.dataset.qcfg))});
+  document.querySelectorAll('[data-qdel]').forEach(q=>q.onclick=async e=>{
+    e.stopPropagation();const i=+q.dataset.qdel;
+    if(i===S.session.idx){toast('That is the lift you are on. Use Skip lift.','bad');return}
+    const nm=byId(S.session.blocks[i].ex).n;
+    if(!await dialog({title:'Remove from this session',body:`${nm} will be dropped. Sets already logged are kept.`,
+      confirmText:'Remove',danger:true}))return;
+    S.session.blocks.splice(i,1);
+    if(i<S.session.idx)S.session.idx--;
+    save();render()});
+  document.querySelectorAll('[data-qswap]').forEach(q=>q.onclick=e=>{
+    e.stopPropagation();openSheet(swapSheet(+q.dataset.qswap))});
+  document.querySelectorAll('[data-go],[data-goto]').forEach(q=>q.onclick=()=>{
     /* switching lifts must not destroy the running timer or any set counts */
-    S.session.idx=+q.dataset.go;save();render()});
+    S.session.idx=+(q.dataset.go!==undefined?q.dataset.go:q.dataset.goto);
+    hap(6);save();render()});
   const es=el('endsess');if(es)es.onclick=()=>{
     if(S.session.blocks.length&&S.sets.some(q=>q.date===today())){S.done++;
       const p2=findWk(S.session.wk);
@@ -3093,6 +3295,7 @@ function wire(){
     g.bar=Math.max(0,+(g.bar+(q.dataset.gbar==='+'?0.5:-0.5)).toFixed(2));g.set=true;save();render()});
   document.querySelectorAll('[data-gunit]').forEach(q=>q.onclick=()=>{
     G().unit=q.dataset.gunit;G().set=true;save();render()});
+  const dt2=el('dualtog');if(dt2)dt2.onclick=()=>{S.dualUnit=!S.dualUnit;touch('gear');hap(6);save();render()};
   const gb=el('gbar');if(gb)gb.onchange=e=>{G().bar=Math.max(0,+e.target.value||0);G().set=true;save();render()};
   document.querySelectorAll('[data-plate]').forEach(q=>q.onclick=()=>{
     const v=q.dataset.plate,sz=v.slice(1),g=G();
