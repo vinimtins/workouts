@@ -99,7 +99,7 @@ main{flex:1;padding:var(--pad);display:flex;flex-direction:column;gap:14px}
 .mm-sec{fill:#8E4038}
 .mm-pri{fill:#D8453B}
 .figbox{background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px;display:grid;place-items:center}
-.thumb{flex:0 0 52px;height:58px;background:var(--ink);border:1px solid var(--line);border-radius:7px;padding:3px;display:grid;place-items:center;overflow:hidden}
+.thumb{flex:0 0 54px;height:52px;background:#fff;border-radius:9px;padding:3px;display:grid;place-items:center;overflow:hidden}
 .mtag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-family:"Barlow Condensed",sans-serif;
   padding:3px 8px;border-radius:99px;white-space:nowrap}
 .mtag.pri{background:#D8453B;color:#fff}
@@ -333,13 +333,17 @@ nav .ic{font-size:15px;line-height:1}
 .now.resting{border-color:rgba(75,159,225,.5)}
 .now.held{opacity:.6}
 .now .prog{position:absolute;left:0;top:0;height:3px;background:var(--rest);transition:width .95s linear}
-.now .art{width:110px;height:96px;float:right;margin:-2px -2px 6px 12px;background:#fff;
-  border-radius:14px;display:grid;place-items:center;overflow:hidden}
-.now .art svg,.now .art img{width:100%;height:100%;object-fit:contain}
-.now .track{font-family:"Barlow Condensed",sans-serif;font-size:clamp(21px,6vw,26px);
-  text-transform:uppercase;letter-spacing:.03em;line-height:1.05;margin-bottom:2px}
+/* Artwork and title share a row: floating the image left a dead zone beside a
+   short exercise name, and pushed the name below the image on narrow screens. */
+.nowhead{display:flex;gap:14px;align-items:center}
+.now .art{flex:0 0 96px;width:96px;height:96px;background:#fff;border:0;padding:6px;
+  border-radius:16px;display:grid;place-items:center;overflow:hidden}
+.now .art svg,.now .art img{width:100%;height:100%;object-fit:contain;display:block}
+.nowtitle{flex:1;min-width:0}
+.now .track{font-family:"Barlow Condensed",sans-serif;font-size:clamp(19px,5.2vw,25px);
+  text-transform:uppercase;letter-spacing:.03em;line-height:1.06;margin-bottom:3px}
 .now .sub{font-size:12.5px;color:var(--mute)}
-.now .stats{display:flex;gap:20px;margin-top:13px;clear:both}
+.now .stats{display:flex;gap:26px;margin-top:16px}
 .now .stat b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:22px;line-height:1.1}
 .now .stat i{font-style:normal;font-size:14px;color:var(--mute)}
 .now .stat span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);
@@ -378,7 +382,7 @@ nav .ic{font-size:15px;line-height:1}
 .qrow{display:flex;align-items:center;gap:10px;padding:9px 4px;border-radius:14px;
   transition:background .15s ease}
 .qrow.rest-row{opacity:.55}
-.qart{flex:0 0 42px;height:38px;background:#fff;border-radius:9px;overflow:hidden;display:grid;place-items:center}
+.qart{flex:0 0 44px;height:40px;background:#fff;border-radius:10px;padding:3px;overflow:hidden;display:grid;place-items:center}
 .qart svg,.qart img{width:100%;height:100%;object-fit:contain}
 .qdot{flex:0 0 42px;height:38px;display:grid;place-items:center;color:var(--rest)}
 .qbody{flex:1;min-width:0}
@@ -411,8 +415,8 @@ nav .ic{font-size:15px;line-height:1}
   font-family:"Barlow Condensed",sans-serif;font-size:12px;color:#12151A;font-weight:600}
 /* tappable name and artwork in the player */
 .now .track.tapname{display:block;width:100%;text-align:left;padding:0;background:none;
-  font-family:"Barlow Condensed",sans-serif;font-size:clamp(21px,6vw,26px);
-  text-transform:uppercase;letter-spacing:.03em;line-height:1.05;color:var(--chalk)}
+  font-family:"Barlow Condensed",sans-serif;font-size:clamp(19px,5.2vw,25px);
+  text-transform:uppercase;letter-spacing:.03em;line-height:1.06;color:var(--chalk)}
 .infodot{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;
   border:1px solid var(--mute);color:var(--mute);font-family:-apple-system,system-ui,serif;
   font-size:12px;font-style:italic;margin-left:8px;vertical-align:3px;text-transform:none}
@@ -425,6 +429,7 @@ nav .ic{font-size:15px;line-height:1}
 .mkey.sec{background:#9A4239}
 .mtitle{font-family:"Barlow Condensed",sans-serif;font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--mute);margin-bottom:1px}
+.imgmiss{font-size:11px;color:var(--mute);text-align:center;padding:14px 6px;line-height:1.3}
 .flexb{flex:1}
 .btn.danger{background:#C8382F;color:#fff}
 .chip.flex{flex:1;text-align:center;padding:9px 0}
@@ -1027,6 +1032,9 @@ SCENE.ohtri1arm=()=>`
 /* Artwork lives beside index.html in an img/ folder, not inlined: base64 costs
    a third more, bloats every code update, and cannot be cached separately.
    Any file present here overrides the generated muscle map everywhere.     */
+/* Files may sit in an img/ folder or beside index.html. The first is tidier
+   once there are dozens; the second is what GitHub's web upload does by
+   default. Try the folder, fall back to the root, then to the muscle map. */
 const IMG_DIR='img/';
 const IMG_FILES={
   legext:'leg-extension.gif'
@@ -1034,97 +1042,6 @@ const IMG_FILES={
 };
 const IMG={};
 Object.keys(IMG_FILES).forEach(k=>{IMG[k]=IMG_DIR+IMG_FILES[k]});
-/* ================= artwork layer =================
-   Priority when drawing an exercise: saved artwork -> hardcoded IMG -> animated
-   SCENE -> generated muscle map. Artwork is fetched from wger.de, whose exercise
-   data is CC-BY-SA, so an attribution line is shown wherever an image is used.
-   The wger JSON API may refuse cross-origin browser requests; if it does, the
-   manual URL field below works regardless, because <img> loads are not subject
-   to CORS.                                                                    */
-const WGER='https://wger.de';
-let artBusy=false,artLog=null;
-
-const art=id=>(S.art&&S.art[id])||null;
-function setArt(id,rec){S.art=S.art||{};if(rec)S.art[id]=rec;else delete S.art[id];touch('art');save()}
-
-async function wgerLookup(name){
-  const url=`${WGER}/api/v2/exercise/search/?term=${encodeURIComponent(name)}&language=english&format=json`;
-  const r=await fetch(url,{headers:{'Accept':'application/json'}});
-  if(!r.ok)throw new Error('wger returned '+r.status);
-  const j=await r.json();
-  const hit=(j.suggestions||[]).map(s=>s.data).find(d=>d&&d.image);
-  if(!hit)return null;
-  const abs=p=>p.startsWith('http')?p:WGER+p;
-  return {url:abs(hit.image),thumb:hit.image_thumbnail?abs(hit.image_thumbnail):abs(hit.image),
-    matched:hit.name||name,src:'wger'};
-}
-
-async function fetchArtFor(id,quiet){
-  try{
-    const rec=await wgerLookup(byId(id).n);
-    if(rec){setArt(id,rec);return 'ok'}
-    return 'none';
-  }catch(e){if(!quiet)artLog={err:String(e.message||e)};return 'fail'}
-}
-
-async function fetchAllArt(){
-  if(artBusy)return;artBusy=true;artLog={done:0,ok:0,none:0,fail:0,total:EX.length,err:null};render();
-  for(const x of EX){
-    if(art(x.id)){artLog.done++;artLog.ok++;continue}
-    let res;
-    try{res=await fetchArtFor(x.id,true)}catch(e){res='fail'}
-    if(res==='fail'&&artLog.fail===0){
-      try{await fetch(WGER+'/api/v2/exercise/search/?term=test&format=json')}
-      catch(e){artLog.err='blocked'}
-      if(!artLog.err)artLog.err='other';
-    }
-    artLog[res==='ok'?'ok':res==='none'?'none':'fail']++;artLog.done++;
-    if(artLog.done%4===0)render();
-    await new Promise(r=>setTimeout(r,250));
-  }
-  artBusy=false;save();render();
-}
-
-function artSheet(){
-  const have=EX.filter(x=>art(x.id)).length;
-  const l=artLog;
-  return `<div class="row spread"><h2 style="font-size:22px;color:var(--chalk)">Exercise artwork</h2>
-   <button class="pill" data-close>Close</button></div>
-  <div class="small mute" style="margin:10px 0">Pulls illustrations from wger.de, an open fitness database.
-   Its images are Creative Commons Attribution Share-Alike, so an attribution line appears wherever one is used.
-   Anything without a match keeps the muscle map.</div>
-  <div class="row spread"><span class="lbl" style="margin:0">Coverage</span>
-    <span class="pill ${have?'on':''}">${have} of ${EX.length}</span></div>
-  <div class="meter" style="margin:8px 0 14px"><i style="width:${have/EX.length*100}%"></i></div>
-  ${l&&l.total?`<div class="small" style="margin-bottom:12px">
-    ${artBusy?`Fetching… ${l.done} of ${l.total}`:`Finished. ${l.ok} matched, ${l.none} with no image, ${l.fail} failed.`}
-    ${l.err==='blocked'?`<div class="held-note" style="margin-top:8px">wger refused the request from the browser.
-      This is a cross-origin restriction on their API and cannot be fixed from this app.
-      Use the per-exercise image field instead, which works for any image URL.</div>`:''}
-    ${l.err==='other'?`<div class="held-note" style="margin-top:8px">The request failed. Check your connection and try again.</div>`:''}
-  </div>`:''}
-  <button class="btn" id="artall" ${artBusy?'disabled style="opacity:.5"':''}>${artBusy?'Fetching…':'Fetch artwork for all exercises'}</button>
-  ${have?`<div style="height:9px"></div><button class="btn ghost" id="artclear">Remove all artwork</button>`:''}
-  <div class="hr"></div>
-  <div class="lbl">Per exercise</div>
-  <div class="small mute">Open any exercise and use the image field there to paste your own photo or URL.
-   That route always works, including offline if you paste a data URI.</div>`}
-
-function artBlock(id){
-  const a=art(id);
-  return `<div class="hr"></div><div class="lbl">Image</div>
-  ${a?`<div class="small mute" style="margin-bottom:8px">Showing artwork${a.matched?` matched as “${esc(a.matched)}”`:''}.</div>`:''}
-  <input class="search" id="arturl" placeholder="Paste an image URL" value="${a?esc(a.url):''}">
-  <div class="row" style="margin-top:9px;gap:8px">
-    <button class="btn slim" data-artget="${id}" style="flex:1">Find on wger</button>
-    <button class="btn ghost slim" data-artset="${id}" style="flex:1">Use this URL</button>
-    ${a?`<button class="btn ghost slim" data-artdel="${id}">Clear</button>`:''}
-  </div>`}
-
-function attribution(id){
-  const a=art(id);if(!a)return '';
-  if(a.src!=='wger')return '<div class="attrib">Your own image</div>';
-  return `<div class="attrib">Illustration from wger.de, licensed CC-BY-SA</div>`}
 
 
 /* pri | sec | plain-language description, keyed by exercise id */
@@ -1232,10 +1149,11 @@ function half(list,pri,sec,tx){
       return `<g class="${c}">${shape}</g>`}).join('')+`</g>`}
 function figure(id,view){
   const m=musc(id);
-  const a=art(id);
-  if(a)return `<img class="exfig" src="${esc(a.url)}" alt="${esc(byId(id).n)}" loading="lazy"
-    onerror="this.style.display='none'">`;
-  if(IMG[id])return `<img class="exfig" src="${IMG[id]}" alt="${esc(byId(id).n)}">`;
+  if(IMG[id]){
+    const file=IMG_FILES[id];
+    /* if img/<file> 404s, retry beside index.html before giving up */
+    return `<img class="exfig" src="${IMG[id]}" alt="${esc(byId(id).n)}" loading="lazy"
+      onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='${file}'}else{this.replaceWith(Object.assign(document.createElement('div'),{className:'imgmiss',textContent:'${esc(file)} not found'}))}">`}
   if(SCENE[id]&&(view==='both'||view==='card'))return SCENE[id]();
   const both=view!=='front';
   return `<svg class="exfig" viewBox="0 0 ${both?242:120} 190" preserveAspectRatio="xMidYMid meet" role="img"
@@ -1249,7 +1167,7 @@ function muscleLegend(id){const m=musc(id);
 const GROUPS=['Chest','Back','Shoulders','Legs','Arms','Core'],EQUIP=['Barbell','Dumbbell','Machine','Cable','Bodyweight','Kettlebell'];
 
 /* ================= state ================= */
-let S={sets:[],bio:[],checks:[],height:null,session:null,parked:null,plans:[],current:null,art:{},gear:null,sync:null,del:[],notes:{},mtime:0,schema:6,done:0};
+let S={sets:[],bio:[],checks:[],height:null,session:null,parked:null,plans:[],current:null,gear:null,sync:null,del:[],notes:{},mtime:0,schema:6,done:0};
 let tab='workout',plan='workouts',stat='progress',pickFor=null,planView=null,exView='grid',filt={g:'All',eq:'All',q:'',mine:true};
 let tick=null,paused=false,elapsedTick=null;
 
@@ -1564,8 +1482,6 @@ function vSettings(){
       <span class="small mute">${lk?'Passphrase set, storage encrypted':'No passphrase'}</span></span><span class="arw">›</span></button>
     <button class="item" data-sett="backup"><span class="body"><span class="t">Backup and restore</span>
       <span class="small mute">Export everything to a file</span></span><span class="arw">›</span></button>
-    <button class="item" data-sett="art"><span class="body"><span class="t">Exercise artwork</span>
-      <span class="small mute">${EX.filter(x=>art(x.id)).length} of ${EX.length} have images</span></span><span class="arw">›</span></button>
   </div>
   ${vGear()}`}
 
@@ -2269,10 +2185,14 @@ function vWorkout(){
 
   <div class="now ${resting?'resting':''} ${held?'held':''}">
     ${resting&&st.total?`<div class="prog" style="width:${(1-st.t/st.total)*100}%"></div>`:''}
-    <button class="art" data-ex="${x.id}" aria-label="How to do ${esc(x.n)}">${figure(x.id,'front')}</button>
-    <button class="track tapname" data-ex="${x.id}">${esc(x.n)}<span class="infodot">i</span></button>
-    <div class="sub">${resting&&s.lastLog?`Just logged · ${esc(s.lastLog)}`
-      :`${esc(x.g)} · ${esc(x.also||x.eq)}`}</div>
+    <div class="nowhead">
+      <button class="art" data-ex="${x.id}" aria-label="How to do ${esc(x.n)}">${figure(x.id,'front')}</button>
+      <div class="nowtitle">
+        <button class="track tapname" data-ex="${x.id}">${esc(x.n)}<span class="infodot">i</span></button>
+        <div class="sub">${resting&&s.lastLog?`Just logged · ${esc(s.lastLog)}`
+          :`${esc(x.g)} · ${esc(x.also||x.eq)}`}</div>
+      </div>
+    </div>
     ${(b.nextType&&b.nextType!=='work')?`<div class="exnote pending">Next set: ${esc(SETTYPE[b.nextType].n.toLowerCase())}</div>`:''}
     ${exNote(x.id)?`<div class="exnote">${esc(exNote(x.id))}</div>`:''}
     ${b.pendingNote?`<div class="exnote pending">Next set: ${esc(b.pendingNote)}</div>`:''}
@@ -2463,7 +2383,7 @@ function planEx(){
     <div class="row" style="gap:8px">
       <div class="seg" style="flex:1"><button data-exv="list" aria-pressed="${exView==='list'}">List</button>
         <button data-exv="grid" aria-pressed="${exView==='grid'}">Cards</button></div>
-      <button class="btn ghost slim" id="artopen">Artwork</button></div>
+    </div>
     <div style="height:9px"></div>
     <button class="chip" id="minetoggle" aria-pressed="${filt.mine}" style="width:100%;text-align:center">
       ${filt.mine?'Showing only what my gym has':'Showing every exercise'}</button>
@@ -2713,7 +2633,7 @@ function mergeDoc(local,remote){
      device and a plan on the other no longer loses whichever synced second. */
   const lf=local.fmtime||{}, rf=remote.fmtime||{};
   out.fmtime=Object.assign({},lf);
-  ['plans','current','gear','art','height','autoNext','notes','done'].forEach(k=>{
+  ['plans','current','gear','height','autoNext','notes','done'].forEach(k=>{
     const lt=lf[k]||lm, rt=rf[k]||rm;
     if(rt>lt&&(k in remote)){out[k]=remote[k];out.fmtime[k]=rt;changed=true}
     else if(k in local)out.fmtime[k]=lt});
@@ -2735,7 +2655,7 @@ async function syncPull(quiet){
       const remote=migrate(JSON.parse(b64dec(res.content)));
       const {out,changed}=mergeDoc(S,remote);
       Object.assign(S,out);
-      if(!S.art)S.art={};if(!S.checks)S.checks=[];(S.plans||[]).forEach(normBlocks);
+      if(!S.checks)S.checks=[];(S.plans||[]).forEach(normBlocks);
       syncNote=changed?'Pulled changes from the repo.':'Already up to date.';
     }
     y.lastPull=Date.now();await save();
@@ -2829,7 +2749,7 @@ function restoreBackup(text){
     const o=JSON.parse(text);
     if(!o||typeof o!=='object'||!('sets' in o))throw new Error('not a Rack backup');
     S=Object.assign({},S,o);
-    if(!S.art)S.art={};if(!S.checks)S.checks=[];(S.plans||[]).forEach(normBlocks);
+    if(!S.checks)S.checks=[];(S.plans||[]).forEach(normBlocks);
     save();render();toast('Backup restored.')
   }catch(e){toast('Could not read that file: '+e.message,'bad',6000)}}
 
@@ -3171,7 +3091,6 @@ function exSheet(id){const x=byId(id),b=bestEver(id),h=byDay(id);
     <div class="row spread" style="margin-bottom:10px"><span class="tag">Movement</span>
     <button class="pill" id="animtoggle">Pause animation</button></div>`:''}
   <div class="figbox" style="margin-bottom:4px">${figure(id,SCENE[id]?'maponly':'both')}</div>
-  ${attribution(id)}
   <div style="height:8px"></div>
   <div class="row wrap tight" style="justify-content:center;margin-bottom:10px">
     <span class="tag">Front</span><span class="tag" style="margin-left:auto">Back</span></div>
@@ -3192,7 +3111,6 @@ function exSheet(id){const x=byId(id),b=bestEver(id),h=byDay(id);
     <div class="stat"><b class="num">${b.weight}</b><span>best kg</span></div>
     <div class="stat"><b class="num">${b.reps}</b><span>at reps</span></div>
     <div class="stat"><b class="num">${h.length}</b><span>sessions</span></div></div>`:''}
-  ${artBlock(id)}
   <div style="height:16px"></div>
   ${pickFor==='plan'
     ?`<button class="btn" data-toplan="${x.id}">Add to plan</button>`
@@ -3387,22 +3305,6 @@ function wire(){
     S.draft=JSON.parse(JSON.stringify(p));bDay=0;closeSheet();tab='build';render()});
   const sp2=el('seedplan');if(sp2)sp2.onclick=()=>{
     const p=seedPlan();S.plans=(S.plans||[]);S.plans.unshift(p);S.current=p.id;save();render()};
-  const ao=el('artopen');if(ao)ao.onclick=()=>openSheet(artSheet());
-  const aa=el('artall');if(aa)aa.onclick=()=>{fetchAllArt();openSheet(artSheet())};
-  const acl=el('artclear');if(acl)acl.onclick=async()=>{
-    if(!await dialog({title:'Remove all artwork',confirmText:'Remove',danger:true}))return;
-    S.art={};artLog=null;touch('art');save();openSheet(artSheet())};
-  document.querySelectorAll('[data-artget]').forEach(q=>q.onclick=async()=>{
-    const id=q.dataset.artget;q.textContent='Looking…';
-    const res=await fetchArtFor(id);
-    if(res==='ok'){openSheet(exSheet(id));return}
-    q.textContent=res==='none'?'No image found':'Request blocked';
-    setTimeout(()=>{q.textContent='Find on wger'},2600)});
-  document.querySelectorAll('[data-artset]').forEach(q=>q.onclick=()=>{
-    const id=q.dataset.artset,v=el('arturl').value.trim();
-    setArt(id,v?{url:v,src:'own'}:null);openSheet(exSheet(id))});
-  document.querySelectorAll('[data-artdel]').forEach(q=>q.onclick=()=>{
-    setArt(q.dataset.artdel,null);openSheet(exSheet(q.dataset.artdel))});
   document.querySelectorAll('[data-exv]').forEach(q=>q.onclick=()=>{exView=q.dataset.exv;render()});
   document.querySelectorAll('[data-plan]').forEach(q=>q.onclick=()=>{plan=q.dataset.plan;render()});
   document.querySelectorAll('[data-stat]').forEach(q=>q.onclick=()=>{stat=q.dataset.stat;render()});
@@ -3448,7 +3350,6 @@ function wire(){
     const k=q.dataset.sett;
     if(k==='sync'){syncErr=null;syncNote='';openSheet(syncSheet())}
     if(k==='sec')openSheet(securitySheet());
-    if(k==='art')openSheet(artSheet());
     if(k==='backup')openSheet(backupSheet())});
   /* in-session library */
   const lq=el('libq');if(lq)lq.oninput=e=>{openSheet(libSheet(e.target.value))};
@@ -3559,7 +3460,7 @@ const SCHEMA=6;
    any age converges on the current shape. A document from a NEWER build is
    left alone and flagged, rather than being silently mangled. */
 const MIGRATIONS={
-  1:d=>{d.art=d.art||{};d.checks=d.checks||[];d.del=d.del||[]},
+  1:d=>{d.checks=d.checks||[];d.del=d.del||[]},
   2:d=>{(d.plans||[]).forEach(p=>{if(!p.rest)p.rest={set:90,ex:120}})},
   3:d=>{if(d.gear&&d.gear.st){const st=d.gear.st;
       if(st.legext===false||st.legcurl===false)st.legmachine=false;
