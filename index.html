@@ -1913,6 +1913,10 @@ function planWk(){
       <button class="btn ghost slim" data-editplan="${p.id}" style="flex:1">Edit this plan</button>
       <button class="btn ghost slim" id="newplanbtn" style="flex:1">New block</button>
     </div>
+    <div style="height:9px"></div>
+    <button class="btn ghost slim" id="reseed" style="width:100%">Replace with the current return-to-training plan</button>
+    <div class="small mute" style="margin-top:6px">Overwrites this plan's exercises with the built-in one.
+      Sessions you have already logged are kept.</div>
     ${p.note?`<div class="hr"></div><div class="small mute">${esc(p.note)}</div>`:''}
   </div>
 
@@ -3309,6 +3313,18 @@ function wire(){
   document.querySelectorAll('[data-editplan]').forEach(q=>q.onclick=()=>{
     const p=findWk(q.dataset.editplan);
     S.draft=JSON.parse(JSON.stringify(p));bDay=0;closeSheet();tab='build';render()});
+  const rs2=el('reseed');if(rs2)rs2.onclick=async()=>{
+    const old2=curPlan();if(!old2)return;
+    if(!await dialog({title:'Replace this plan',
+      body:'The exercises, sets and rest for every day are replaced with the built-in '+
+           'return-to-training plan. Your logged sets and your progress through the block are kept.',
+      confirmText:'Replace'}))return;
+    const fresh=seedPlan();
+    /* keep identity and history so the cycle does not restart */
+    fresh.id=old2.id;fresh.start=old2.start;
+    fresh.doneDays=old2.doneDays||[];fresh.lastIdx=old2.lastIdx!==undefined?old2.lastIdx:null;
+    S.plans=(S.plans||[]).map(q=>q.id===old2.id?fresh:q);
+    planView=null;touch('plans');save();render();toast('Plan replaced.')};
   const sp2=el('seedplan');if(sp2)sp2.onclick=()=>{
     const p=seedPlan();S.plans=(S.plans||[]);S.plans.unshift(p);S.current=p.id;save();render()};
   document.querySelectorAll('[data-exv]').forEach(q=>q.onclick=()=>{exView=q.dataset.exv;render()});
