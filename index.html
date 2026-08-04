@@ -312,19 +312,6 @@ nav .ic{font-size:15px;line-height:1}
   font-weight:400;color:var(--mute);letter-spacing:0;margin-top:1px}
 .alt-inline{color:var(--mute);font-size:.86em;font-weight:400}
 .linkish{color:var(--rest);text-decoration:underline;padding:0;font:inherit;background:none}
-/* ---- player: session header ---- */
-.sess-hdr{display:flex;gap:13px;align-items:center;padding:2px 4px 14px}
-.ring{position:relative;flex:0 0 52px;height:52px}
-.ring svg{transform:rotate(-90deg)}
-.ring b{position:absolute;inset:0;display:grid;place-items:center;
-  font-family:"Barlow Condensed",sans-serif;font-size:14px}
-.sess-hdr .meta{flex:1;min-width:0}
-.sess-hdr .t1{font-family:"Barlow Condensed",sans-serif;font-size:18px;text-transform:uppercase;
-  letter-spacing:.05em;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sess-hdr .t2{font-size:12.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sess-hdr .clk{font-family:"Barlow Condensed",sans-serif;font-size:16px;color:var(--mute);
-  padding:10px 4px;min-height:44px;flex:0 0 auto}
-.sess-hdr .clk.held{color:var(--rest)}
 
 /* ---- player: now playing ---- */
 .now{background:linear-gradient(168deg,var(--steel) 0%,#131820 100%);
@@ -343,7 +330,7 @@ nav .ic{font-size:15px;line-height:1}
 .now .track{font-family:"Barlow Condensed",sans-serif;font-size:clamp(19px,5.2vw,25px);
   text-transform:uppercase;letter-spacing:.03em;line-height:1.06;margin-bottom:3px}
 .now .sub{font-size:12.5px;color:var(--mute)}
-.now .stats{display:flex;gap:26px;margin-top:16px}
+.now .stats{display:flex;gap:22px;margin-top:14px}
 .now .stat b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:22px;line-height:1.1}
 .now .stat i{font-style:normal;font-size:14px;color:var(--mute)}
 .now .stat span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);
@@ -430,6 +417,104 @@ nav .ic{font-size:15px;line-height:1}
 .mtitle{font-family:"Barlow Condensed",sans-serif;font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--mute);margin-bottom:1px}
 .imgmiss{font-size:11px;color:var(--mute);text-align:center;padding:14px 6px;line-height:1.3}
+/* ---- train tab: top block ---- */
+.top{background:var(--steel);border:1px solid var(--line);border-radius:18px;padding:13px 13px 11px;margin-bottom:12px}
+.top .bar{display:flex;align-items:center;gap:12px}
+.top .ring{position:relative;flex:0 0 46px;height:46px}
+.top .ring svg{transform:rotate(-90deg)}
+.top .ring b{position:absolute;inset:0;display:grid;place-items:center;
+  font-family:"Barlow Condensed",sans-serif;font-size:13px}
+.top .meta{flex:1;min-width:0;overflow:hidden}
+.top .pn{font-family:"Barlow Condensed",sans-serif;font-size:20px;line-height:1.03;
+  letter-spacing:.02em;color:var(--chalk);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .dn{font-family:"Barlow Condensed",sans-serif;font-size:14px;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--mute);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .clk{font-family:"Barlow Condensed",sans-serif;font-size:26px;line-height:1;color:var(--chalk);
+  flex:0 0 auto;padding:6px 2px;background:none;min-height:44px}
+.top .clk.held{color:var(--rest)}
+.skipday{flex:0 0 42px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+  display:grid;place-items:center;color:var(--mute);background:none}
+.skipday svg{width:16px;height:16px;fill:currentColor}
+.skipday:active{background:var(--steel-2);color:var(--chalk)}
+.subrow{display:flex;justify-content:space-between;align-items:baseline;margin-top:9px;gap:10px}
+.subrow .dt{font-size:13px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.streakpill{font-family:"Barlow Condensed",sans-serif;font-size:11.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--signal);white-space:nowrap;flex:0 0 auto}
+.streakpill.none{color:var(--mute)}
+
+/* ---- calendar strip ---- */
+.strip{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:9px 0 2px;
+  -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+/* seven cells across the block: (100% - 6 gaps) / 7 */
+.strip .day{scroll-snap-align:center}
+.strip::-webkit-scrollbar{display:none}
+.strip .day{flex:0 0 calc((100% - 36px) / 7);min-width:40px;display:flex;flex-direction:column;
+  align-items:center;gap:4px;background:none;padding:0}
+.strip .wd{font-family:"Barlow Condensed",sans-serif;font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mute)}
+.strip .c{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);color:var(--mute);
+  display:grid;place-items:center;font-family:"Barlow Condensed",sans-serif;font-size:14px;
+  position:relative;background:var(--ink)}
+.strip .lb{font-family:"Barlow Condensed",sans-serif;font-size:9.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--mute);height:11px}
+.strip .day.done .c{background:var(--steel-2);color:var(--chalk);border-color:var(--steel-2)}
+.strip .day.done .c::after{content:"";position:absolute;left:4px;right:4px;top:50%;height:2px;
+  background:var(--signal);transform:rotate(-24deg)}
+.strip .day.done .lb{color:var(--signal)}
+.strip .day.missed .c{border-color:#C8382F;color:#E8998F}
+.strip .day.missed .lb{color:#C8382F}
+.strip .day.skipped .c{border-style:dotted;color:var(--mute)}
+.strip .day.rest .c{border-style:dashed}
+.strip .day.today .c{border-color:var(--signal);border-width:3px;color:var(--chalk);font-weight:700;
+  box-shadow:0 0 0 4px rgba(232,185,35,.13)}
+.strip .day.today .wd,.strip .day.today .lb{color:var(--signal)}
+.strip .day.future .c{opacity:.7}
+.strip .day.future.soon .c{opacity:1}
+
+/* ---- missed-day recovery ---- */
+.recover{margin-top:11px;border-left:3px solid #C8382F;padding:9px 0 9px 11px;
+  background:rgba(200,56,47,.08);border-radius:0 10px 10px 0}
+.recover .h{font-family:"Barlow Condensed",sans-serif;font-size:13px;letter-spacing:.08em;
+  text-transform:uppercase;color:#E8998F}
+.recover .b{font-size:13px;color:var(--mute);margin:2px 0 9px}
+
+/* ---- artwork on the right, larger ---- */
+.nowhead{display:flex;gap:14px;align-items:flex-start}
+.now .art{flex:0 0 116px;width:116px;height:116px;background:#fff;border:0;padding:6px;
+  border-radius:16px;display:grid;place-items:center;overflow:hidden}
+.sessacts{display:flex;gap:8px;margin-top:18px}
+.sessacts .btn{width:auto}
+.dayacts{display:flex;gap:7px;margin-top:11px}
+.dact{flex:1;min-height:44px;border:1px solid var(--line);border-radius:11px;background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 2px;color:var(--mute)}
+.dact svg{width:15px;height:15px;fill:currentColor}
+.dact span{font-family:"Barlow Condensed",sans-serif;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase}
+.dact:active{background:var(--steel-2);color:var(--chalk)}
+.dact.warn{color:#E8998F}
+.top .clk.idle{color:var(--mute);font-size:22px}
+.daymenu{flex:0 0 34px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+  display:grid;place-items:center;color:var(--mute);background:none;padding:0}
+.daymenu svg{width:16px;height:16px;fill:currentColor}
+.daymenu:active{background:var(--steel-2);color:var(--chalk)}
+.todaychip{font-family:"Barlow Condensed",sans-serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:#12151A;background:var(--signal);border-radius:99px;
+  padding:6px 12px;white-space:nowrap;min-height:0}
+.strip .day.sel .c{box-shadow:0 0 0 4px rgba(236,233,226,.2)}
+.strip .day.sel .wd{color:var(--chalk)}
+.now.past{background:var(--steel)}
+.midhead{display:flex;gap:14px;align-items:flex-start}
+.badge{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:99px;margin-bottom:10px}
+.badge.done{background:rgba(232,185,35,.14);color:var(--signal)}
+.badge.miss{background:rgba(200,56,47,.16);color:#E8998F}
+.badge.skip{background:var(--steel-2);color:var(--mute)}
+.badge.rest{background:rgba(75,159,225,.14);color:var(--rest)}
+.badge.plan{background:rgba(232,185,35,.14);color:var(--signal)}
+.resumebar{display:flex;align-items:center;gap:10px;background:rgba(232,185,35,.1);
+  border:1px solid rgba(232,185,35,.4);border-radius:12px;padding:10px 12px;margin-bottom:13px}
+.resumebar .t{flex:1;font-size:13px}
+.resumebar button{font-family:"Barlow Condensed",sans-serif;font-size:12px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--signal);min-height:0}
 .flexb{flex:1}
 .btn.danger{background:#C8382F;color:#fff}
 .chip.flex{flex:1;text-align:center;padding:9px 0}
@@ -455,7 +540,7 @@ nav button[aria-current="true"]{color:var(--chalk);border-top-color:var(--signal
 </head>
 <body>
 <div id="app">
-  <header><div class="brand"><h1>Rack</h1><span class="sub" id="datesub"></span></div></header>
+  <header id="apphdr"><div class="brand"><h1>Rack</h1><span class="sub" id="datesub"></span></div></header>
   <main id="view"></main>
 </div>
 <nav><div class="inner five">
@@ -610,7 +695,7 @@ function paintLock(mode,err){
   el('lkpass').focus()}
 function unpaintLock(){
   document.body.classList.remove('locked');
-  document.querySelector('header').style.display='';
+  document.querySelector('header').style.display = tab==='workout' ? 'none' : '';
   document.querySelector('nav').style.display=''}
 
 function securitySheet(){
@@ -1173,8 +1258,8 @@ function muscleLegend(id){const m=musc(id);
 const GROUPS=['Chest','Back','Shoulders','Legs','Arms','Core'],EQUIP=['Barbell','Dumbbell','Machine','Cable','Bodyweight','Kettlebell'];
 
 /* ================= state ================= */
-let S={sets:[],bio:[],checks:[],height:null,session:null,parked:null,plans:[],current:null,gear:null,sync:null,del:[],notes:{},mtime:0,schema:6,done:0};
-let tab='workout',plan='workouts',stat='progress',pickFor=null,planView=null,exView='grid',filt={g:'All',eq:'All',q:'',mine:true};
+let S={sets:[],bio:[],checks:[],height:null,session:null,parked:null,plans:[],current:null,gear:null,sync:null,del:[],notes:{},mtime:0,schema:7,done:0};
+let tab='workout',plan='workouts',stat='progress',pickFor=null,planView=null,selDay=null,exView='grid',filt={g:'All',eq:'All',q:'',mine:true};
 let tick=null,paused=false,elapsedTick=null;
 
 const today=()=>new Date().toISOString().slice(0,10);
@@ -1587,15 +1672,39 @@ function byDay(id){const m={};S.sets.filter(s=>s.ex===id).forEach(s=>m[s.date]=(
 function rel(d){const n=Math.round((new Date(today())-new Date(d))/864e5);return n===0?'today':n===1?'yesterday':n+' days ago'}
 function trainedDays(){return new Set(S.sets.map(s=>s.date))}
 function dayStrip(n){
-  n=n||21;const set=trainedDays(),out=[];
-  for(let i=n-1;i>=0;i--){
-    const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-i);
-    const k=d.toISOString().slice(0,10),did=set.has(k);
-    out.push(`<button class="day ${did?'trained':'rest-day'} ${i===0?'today':''}" data-day="${k}"
-      aria-label="${d.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'})}${did?', trained':''}">
+  const p=curPlan();
+  const set=trainedDays(), out=[];
+  /* seven visible: three back, today, three forward. More are in the DOM so
+     the strip can be scrolled, but the cells are sized so seven fill the width. */
+  const span=n||10;
+  const byDate={};
+  if(p)ensureSchedule(p).forEach(x=>byDate[x.d]=x);
+  for(let k=-span;k<=span;k++){
+    const iso=addDays(today(),k);
+    const d=new Date(iso+'T12:00');
+    const sl=byDate[iso];
+    const letter=sl?p.cycle[sl.i].k:'';
+    const isRest=sl?!p.cycle[sl.i].b.length:false;
+    const trained=set.has(iso);
+    let cls='day';
+    if(k===0)cls+=' today';
+    else if(k<0){
+      if(sl&&sl.state==='skipped')cls+=' skipped';
+      else if(trained||(sl&&sl.state==='done'))cls+=' done';
+      else if(sl&&!sl.state&&!isRest)cls+=' missed';
+      else cls+=' past';
+    } else {
+      cls+=' future'+(k===1?' soon':'');
+    }
+    if(isRest)cls+=' rest';
+    out.push(`<button class="${cls}" data-day="${iso}"
+      aria-label="${d.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'})}">
       <span class="wd">${d.toLocaleDateString(undefined,{weekday:'narrow'})}</span>
-      <span class="c">${d.getDate()}</span></button>`)}
-  return `<div class="days" id="daystrip">${out.join('')}</div>`}
+      <span class="c">${d.getDate()}</span>
+      <span class="lb">${sl&&sl.state==='missed'?'miss':sl&&sl.state==='skipped'?'skip':esc(letter)}</span>
+    </button>`);
+  }
+  return `<div class="strip" id="daystrip">${out.join('')}</div>`}
 function streak(){const set=trainedDays();let n=0;const d=new Date();d.setHours(12,0,0,0);
   if(!set.has(d.toISOString().slice(0,10)))d.setDate(d.getDate()-1);
   while(set.has(d.toISOString().slice(0,10))){n++;d.setDate(d.getDate()-1)}return n}
@@ -1799,7 +1908,7 @@ function startPlanDay(p,i){
     runningSince:Date.now(),idx:0,
     rest:{set:(p.rest&&p.rest.set)||90,ex:(p.rest&&p.rest.ex)||120},
     blocks:d.b.map(b=>({ex:b.ex,target:blkSets(p,b),reps:b.hi,logged:0,weight:suggest(b.ex)}))};
-  S.parked=null;paused=false;save();askNotify();keepAwake(true);tab='workout';closeSheet();render()}
+  S.parked=null;paused=false;selDay=null;save();askNotify();keepAwake(true);tab='workout';closeSheet();render()}
 
 function startFreestyle(){
   S.session={wk:null,name:'Freestyle',start:Date.now(),accum:0,runningSince:Date.now(),idx:0,
@@ -1816,27 +1925,64 @@ function resumeParked(){if(!S.parked)return;
 const plans=()=>S.plans||[];
 const curPlan=()=>plans().find(p=>p.id===S.current)||plans()[0]||null;
 const findWk=id=>plans().find(p=>p.id===id);
-function planDay(p,d){
-  /* Which day of the cycle comes next is driven by what has actually been
-     completed, not by how many calendar days have elapsed. Skipping two days
-     should not skip two training days.                                      */
-  const n=Math.floor((new Date(d||today())-new Date(p.start))/864e5);
-  const doneCount=(p.doneDays||[]).length;
-  let i;
-  if(p.pinned!=null)i=p.pinned;
-  else if(doneCount)i=(p.lastIdx+1)%p.cycle.length;
-  else i=0;
-  /* if the next slot is a rest day and one was already taken today, move on */
-  const wk=Math.max(1,Math.min(p.weeks,Math.floor(doneCount/Math.max(1,sessionsPerWeek(p)))+1));
-  return {i,week:wk,day:n+1,done:doneCount,total:plannedSessions(p),
-    past:doneCount>=plannedSessions(p)}}
+/* ---- dated schedule -----------------------------------------------------
+   The plan lays out real dates when it starts, so future days can show what is
+   coming. Skipping or missing a day pushes everything after it forward instead
+   of dropping a workout: a missed day costs you a day, never a session.
+   sched entries: {d:'YYYY-MM-DD', i:cycleIndex, state:null|'done'|'skipped'|'missed'} */
+const ymd=dt=>{const x=new Date(dt);x.setHours(12,0,0,0);
+  return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`};
+const addDays=(iso,n)=>{const x=new Date(iso+'T12:00');x.setDate(x.getDate()+n);return ymd(x)};
+
+function buildSchedule(p,from){
+  const start=from||p.start||today(), out=[];
+  for(let k=0;k<p.weeks*7;k++)out.push({d:addDays(start,k),i:k%p.cycle.length,state:null});
+  return out}
+function ensureSchedule(p){
+  if(!p.sched||!p.sched.length)p.sched=buildSchedule(p);
+  return p.sched}
+const slotFor=(p,iso)=>ensureSchedule(p).find(x=>x.d===(iso||today()))||null;
+const todaySlot=p=>slotFor(p,today());
+
+/* scheduled before today, no outcome recorded, and it was a training day */
+function pendingMisses(p){
+  const t=today();
+  return ensureSchedule(p).filter(x=>x.d<t&&!x.state&&p.cycle[x.i].b.length)}
+
+/* push every unfinished slot on or after iso forward, then de-collide dates */
+function shiftFrom(p,iso,n){
+  const sc=ensureSchedule(p);
+  sc.forEach(x=>{if(x.d>=iso&&!x.state)x.d=addDays(x.d,n)});
+  const open=sc.filter(x=>!x.state).sort((a,b)=>a.d<b.d?-1:1);
+  let cursor=null;
+  open.forEach(x=>{if(cursor&&x.d<=cursor)x.d=addDays(cursor,1);cursor=x.d});
+  touch('plans')}
+
+function markSlot(p,iso,state,shift){
+  const sl=slotFor(p,iso);if(!sl)return;
+  sl.state=state;
+  if(shift)shiftFrom(p,addDays(iso,1),1);
+  touch('plans');save()}
+
+function planDay(p){
+  ensureSchedule(p);
+  const sl=todaySlot(p)||p.sched.find(x=>!x.state)||p.sched[0];
+  const done=p.sched.filter(x=>x.state==='done').length;
+  const total=p.sched.filter(x=>p.cycle[x.i].b.length).length;
+  const idx=p.sched.indexOf(sl);
+  return {i:sl.i,slot:sl,week:Math.max(1,Math.min(p.weeks,Math.floor(idx/7)+1)),
+    day:idx+1,done,total,past:done>=total}}
+
 const restDays=p=>p.cycle.filter(c=>!c.b.length).length;
 const sessionsPerWeek=p=>Math.max(1,Math.round(7/p.cycle.length*(p.cycle.length-restDays(p))));
 const plannedSessions=p=>p.weeks*sessionsPerWeek(p);
+
 function markDayDone(p,i){
   planView=null;
+  const sl=todaySlot(p);
+  if(sl){sl.state='done';sl.i=i}
   p.doneDays=(p.doneDays||[]).concat([{i,d:today(),ts:Date.now()}]);
-  p.lastIdx=i;p.pinned=null;save()}
+  p.lastIdx=i;p.pinned=null;touch('plans');save()}
 const weekSets=p=>{const w=planDay(p).week;return p.prog[Math.min(w,p.prog.length)-1]||3};
 const blkSets=(p,b)=>b.sets||weekSets(p);
 const daySets=(p,i)=>p.cycle[i].b.reduce((a,b)=>a+blkSets(p,b),0);
@@ -2008,6 +2154,10 @@ function render(){
   renderQueued=true;
   requestAnimationFrame(()=>{renderQueued=false;renderNow()})}
 function renderNow(){
+  /* the Train tab has its own session header, so the app bar would be a
+     duplicate title above it */
+  const hdr=el('apphdr');
+  if(hdr)hdr.style.display = tab==='workout' ? 'none' : '';
   const ds=el('datesub');
   if(ds)ds.textContent=new Date().toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});
   document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-current',b.dataset.tab===tab));
@@ -2112,50 +2262,81 @@ function vBuild(){
   </div>`}
 
 function vWorkout(){
-  if(!S.session)return `<div class="card">
-    <div class="row spread" style="margin-bottom:6px">
-      <span class="lbl" style="margin:0">Last three weeks</span>
-      <span class="pill ${streak()?'on':''}">${streak()} day streak · ${last7()}/7</span>
-    </div>
-    ${dayStrip(21)}
-    <div class="hr"></div>
-    ${S.parked?parkedCard():''}
-    <h2>Start training</h2>
-    <div style="height:10px"></div>
-    <div class="acts">
-      ${(()=>{const p=curPlan();if(!p)return '';
-        const st=planDay(p),d=p.cycle[st.i];
-        if(!d.b.length)return `<div class="act" style="border-style:dashed">
-          <span class="an">${esc(d.k)} · ${esc(d.n)}</span>
-          <span class="ad">Rest day in the cycle. Pick another day below if you want to train.</span>
-          <div style="height:10px"></div>
-          <button class="btn ghost slim" data-skiprest="${p.id}" style="width:100%">Mark rest taken, move to next</button></div>`;
-        return `<button class="act next" data-startday="${p.id}:${st.i}">
-          <span class="an">${esc(d.k)} · ${esc(d.n)}</span>
-          <span class="ad">${esc(p.n)} · week ${st.week} of ${p.weeks} · ${d.b.length} lifts, ${daySets(p,st.i)} sets</span></button>`})()}
+  /* A selected day takes over the block below the header. The header itself
+     still describes the selection, so it is always clear what you are looking
+     at, and a Today chip is the way back. */
+  if(selDay&&selDay!==today())return topBlock(selDay)+dayView(selDay);
 
-      ${S.parked?`<div class="act parked-act">
-        <div class="row spread">
-          <div style="flex:1;min-width:0">
-            <span class="an">Resume ${esc(S.parked.name)}</span>
-            <span class="ad">${(S.parked.blocks||[]).filter(q=>q.logged>=q.target).length}/${(S.parked.blocks||[]).length} lifts done · ${hhmm(S.parked.accum)} on the clock · parked ${rel(new Date(S.parked.start).toISOString().slice(0,10))}</span>
+  if(!S.session){
+    const p0=curPlan(), st0=p0?planDay(p0):null, d0=p0&&st0?p0.cycle[st0.i]:null;
+    return `
+  <div class="top">
+    <div class="bar">
+      <div class="ring">
+        <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true">
+          <circle cx="23" cy="23" r="19" fill="none" stroke="var(--line)" stroke-width="4.5"/>
+        </svg><b class="num">${p0&&st0?Math.round(st0.done/Math.max(1,st0.total)*100):0}%</b>
+      </div>
+      <div class="meta">
+        ${p0?`<div class="pn">${esc(p0.n)}</div>
+             <div class="dn">${d0?esc(d0.k)+' · '+esc(d0.n):'No day scheduled'}</div>`
+            :`<div class="pn">No plan yet</div><div class="dn">Set one up in Plan</div>`}
+      </div>
+      <div class="clk num idle">—</div>
+    </div>
+    <div class="subrow">
+      <span class="dt">${new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'short'})}${
+        p0&&st0?` · week ${st0.week} of ${p0.weeks}`:''}</span>
+      <span class="streakpill ${streak()?'':'none'}">${streak()?streak()+' day streak':'no streak'}</span>
+    </div>
+    ${dayStrip(10)}
+    ${S.parked?parkedCard():''}
+    ${(()=>{if(!p0)return '';
+      const miss=pendingMisses(p0);if(!miss.length)return '';
+      return `<div class="recover">
+        <div class="h">${miss.length===1?'1 day missed':miss.length+' days missed'}</div>
+        <div class="b">Shift the plan so nothing is lost, or write ${miss.length===1?'it':'them'} off.</div>
+        <div class="row tight">
+          <button class="btn slim flexb" data-missshift="1">Shift forward</button>
+          <button class="btn ghost slim flexb" data-misswrite="1">Write off</button>
+        </div></div>`})()}
+  </div>
+
+  <div class="now">
+    ${d0&&d0.b.length?`
+      <div class="nowhead">
+        <div class="nowtitle">
+          <div class="track">${esc(d0.n)}</div>
+          <div class="sub">Ready when you are</div>
+          <div class="stats">
+            <div class="stat"><b class="num">${d0.b.length}</b><span>Lifts</span></div>
+            <div class="stat"><b class="num">${daySets(p0,st0.i)}</b><span>Sets</span></div>
+            <div class="stat"><b class="num">${planDur(p0,st0.i)}<i> min</i></b><span>Est.</span></div>
           </div>
         </div>
-        <div class="row tight" style="margin-top:11px">
-          <button class="btn blue slim flexb" id="acont">Resume</button>
-          <button class="btn ghost slim flexb" id="dropparked">Discard</button>
-        </div></div>`:''}
-
-      <button class="act" id="apick"><span class="an">Pick a different day</span>
-        <span class="ad">${curPlan()?curPlan().cycle.map(c=>c.k).join(' · '):'No plan yet'}</span></button>
-      <button class="act" id="afree"><span class="an">Freestyle</span>
-        <span class="ad">Start empty, add lifts as you go</span></button>
-      <button class="act" id="aplan"><span class="an">Plans</span>
-        <span class="ad">${curPlan()?esc(curPlan().n)+' · see every day':'Set up a monthly plan'}</span></button>
-      <button class="act" id="anew"><span class="an">New block</span>
-        <span class="ad">Build the next four weeks</span></button>
+        <div class="art">${figure(d0.b[0].ex,'front')}</div>
+      </div>
+      <div class="hr"></div>
+      ${d0.b.slice(0,4).map(bl=>`<div class="item" style="padding:7px 0;min-height:0">
+        <span class="body"><span class="t">${esc(byId(bl.ex).n)}</span></span>
+        <span class="small mute">${repTxt(bl)}</span></div>`).join('')}
+      ${d0.b.length>4?`<div class="small mute" style="padding:7px 0 0">and ${d0.b.length-4} more</div>`:''}
+      <div style="height:16px"></div>
+      <button class="btn" data-startday="${p0.id}:${st0.i}">Start ${esc(d0.k)} · ${esc(d0.n)}</button>`
+    :d0?`<div class="track">Rest day</div>
+      <div class="sub">${esc(d0.n)}</div>
+      <div style="height:16px"></div>
+      <button class="btn ghost" data-skiprest="${p0.id}">Mark rest taken</button>`
+    :`<div class="track">Nothing scheduled</div>
+      <div class="sub">Build a plan, or start a freestyle session</div>`}
+    <div class="sessacts">
+      ${S.parked?`<button class="btn slim flexb" id="acont">Resume parked</button>`:''}
+      <button class="btn ghost slim flexb" id="afree">Freestyle</button>
+      <button class="btn ghost slim flexb" id="aplan">Plans</button>
+      ${p0?'':'<button class="btn ghost slim flexb" id="anew">New plan</button>'}
     </div>
   </div>${recentCard()}`;
+  }
 
   const s=S.session;
   if(!s.blocks.length)return `<div class="card">
@@ -2173,46 +2354,65 @@ function vWorkout(){
   const doneSets=s.blocks.reduce((a,q)=>a+q.logged,0);
   const totSets=s.blocks.reduce((a,q)=>a+q.target,0);
   const pct=totSets?Math.round(doneSets/totSets*100):0;
-  const C=2*Math.PI*22;
 
   return `
-  <div class="sess-hdr">
-    <div class="ring">
-      <svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true">
-        <circle cx="26" cy="26" r="22" fill="none" stroke="var(--line)" stroke-width="5"/>
-        <circle cx="26" cy="26" r="22" fill="none" stroke="var(--signal)" stroke-width="5"
-          stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C*(1-pct/100)).toFixed(1)}"/>
-      </svg><b class="num">${pct}%</b>
+  <div class="top">
+    <div class="bar">
+      <div class="ring">
+        <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true">
+          <circle cx="23" cy="23" r="19" fill="none" stroke="var(--line)" stroke-width="4.5"/>
+          <circle cx="23" cy="23" r="19" fill="none" stroke="var(--signal)" stroke-width="4.5"
+            stroke-linecap="round" stroke-dasharray="119.4"
+            stroke-dashoffset="${(119.4*(1-pct/100)).toFixed(1)}"/>
+        </svg><b class="num">${pct}%</b>
+      </div>
+      <div class="meta">
+        ${w?`<div class="pn">${esc(w.n)}</div>`:''}
+        <div class="dn">${esc(s.name||'Session')}</div>
+      </div>
+      <button class="clk num ${sessionRunning()?'':'held'}" id="sesspause"
+        title="Pause the session clock"><span id="elapsed">0:00</span></button>
+      <button class="daymenu" id="daymenu" aria-label="Day options">
+        <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+      </button>
     </div>
-    <div class="meta">
-      <div class="t1">${esc(s.name||'Session')}</div>
-      <div class="t2">${new Date(s.start).toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'short'})}${
-        w?` · week ${planDay(w).week} of ${w.weeks}`:''}</div>
+    <div class="subrow">
+      <span class="dt">${new Date(s.start).toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'short'})}${
+        w?` · week ${planDay(w).week} of ${w.weeks}`:''}</span>
+      <span class="streakpill ${streak()?'':'none'}">${streak()?streak()+' day streak':'no streak'}</span>
     </div>
-    <button class="clk num ${sessionRunning()?'':'held'}" id="sesspause" title="Pause the session clock">
-      <span id="elapsed">0:00</span></button>
+    ${dayStrip(10)}
+    ${(()=>{const p2=findWk(s.wk);if(!p2)return '';
+      const miss=pendingMisses(p2);if(!miss.length)return '';
+      const names=miss.slice(0,3).map(m=>p2.cycle[m.i].k).join(', ');
+      return `<div class="recover">
+        <div class="h">${miss.length===1?'1 day missed':miss.length+' days missed'}</div>
+        <div class="b">${esc(names)}${miss.length>3?' and more':''} ${miss.length===1?'was':'were'} scheduled and not done.</div>
+        <div class="row tight">
+          <button class="btn slim flexb" data-missshift="1">Shift the plan forward</button>
+          <button class="btn ghost slim flexb" data-misswrite="1">Write ${miss.length===1?'it':'them'} off</button>
+        </div></div>`})()}
   </div>
 
   <div class="now ${resting?'resting':''} ${held?'held':''}">
     ${resting&&st.total?`<div class="prog" style="width:${(1-st.t/st.total)*100}%"></div>`:''}
     <div class="nowhead">
-      <button class="art" data-ex="${x.id}" aria-label="How to do ${esc(x.n)}">${figure(x.id,'front')}</button>
       <div class="nowtitle">
         <button class="track tapname" data-ex="${x.id}">${esc(x.n)}<span class="infodot">i</span></button>
         <div class="sub">${resting&&s.lastLog?`Just logged · ${esc(s.lastLog)}`
           :`${esc(x.g)} · ${esc(x.also||x.eq)}`}</div>
+        <div class="stats">
+          <div class="stat"><b class="num">${setNo}<i> / ${b.target}</i></b><span>Set</span></div>
+          <div class="stat"><b class="num">${b.weight||'—'}<i> ${b.weight?G().unit:''}</i></b>
+            <span>${b.weight&&S.dualUnit?conv(b.weight,G().unit,other(G().unit))+' '+other(G().unit):'Weight'}</span></div>
+          <div class="stat"><b class="num">${b.reps}${b.reps>30?'s':''}</b><span>Reps</span></div>
+        </div>
       </div>
+      <button class="art" data-ex="${x.id}" aria-label="How to do ${esc(x.n)}">${figure(x.id,'front')}</button>
     </div>
     ${(b.nextType&&b.nextType!=='work')?`<div class="exnote pending">Next set: ${esc(SETTYPE[b.nextType].n.toLowerCase())}</div>`:''}
     ${exNote(x.id)?`<div class="exnote">${esc(exNote(x.id))}</div>`:''}
     ${b.pendingNote?`<div class="exnote pending">Next set: ${esc(b.pendingNote)}</div>`:''}
-
-    <div class="stats">
-      <div class="stat"><b class="num">${setNo}<i> / ${b.target}</i></b><span>Set</span></div>
-      <div class="stat"><b class="num">${b.weight||'—'}<i> ${b.weight?G().unit:''}</i></b>
-        <span>${b.weight&&S.dualUnit?conv(b.weight,G().unit,other(G().unit))+' '+other(G().unit):'Weight'}</span></div>
-      <div class="stat"><b class="num">${b.reps}${b.reps>30?'s':''}</b><span>Reps</span></div>
-    </div>
 
     <div class="timer">
       <button class="adj" id="tminus" ${resting?'':'disabled'} aria-label="Less rest">−</button>
@@ -2289,18 +2489,10 @@ function vWorkout(){
   </div>
   ${queueRows(s)}
 
-  <div class="card" style="margin-top:16px">
-    <div class="row" style="gap:24px">
-      <div class="stat"><b class="num">${Math.round(vol(S.sets.filter(q=>q.date===today()))).toLocaleString()}</b><span>${G().unit} volume</span></div>
-      <div class="stat"><b class="num">${S.sets.filter(q=>q.date===today()).length}</b><span>sets today</span></div>
-      <div class="stat"><b class="num">${hhmm(sessionElapsed())}</b><span>elapsed</span></div>
-    </div>
-    <div class="hr"></div>
-    <button class="btn ${allDone?'':'ghost'}" id="endsess">Finish session</button>
-    <div style="height:9px"></div>
-    <button class="btn ghost" id="parksess">Park it and come back later</button>
-    <div style="height:9px"></div>
-    <button class="btn ghost slim" id="addmore" style="width:100%">Add another exercise</button>
+  <div class="sessacts">
+    <button class="btn ghost slim flexb" id="addmore">Add a lift</button>
+    <button class="btn ghost slim flexb" id="parksess">Park</button>
+    <button class="btn ${allDone?'':'ghost'} slim flexb" id="endsess">Finish</button>
   </div>`;
 }
 
@@ -2328,6 +2520,125 @@ function liftItem(q,i,detail){
       <button data-qdel="${i}" aria-label="Remove"><svg viewBox="0 0 24 24">${QI.trash}</svg></button>
       <button data-qswap="${i}" aria-label="Swap"><svg viewBox="0 0 24 24">${QI.swap}</svg></button>
     </div></div>`}
+/* ---- the middle block when a past or future day is selected ---------------
+   Every state a day can be in gets an explicit branch, so nothing falls
+   through to a blank card.                                                  */
+function topBlock(iso){
+  const p2=curPlan();
+  const sl=p2&&iso?slotFor(p2,iso):(p2?todaySlot(p2):null);
+  const cyc=sl&&p2?p2.cycle[sl.i]:null;
+  const st=p2?planDay(p2):null;
+  const viewing=iso&&iso!==today();
+  return `
+  <div class="top">
+    <div class="bar">
+      <div class="ring">
+        <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true">
+          <circle cx="23" cy="23" r="19" fill="none" stroke="var(--line)" stroke-width="4.5"/>
+        </svg><b class="num">${p2&&st?Math.round(st.done/Math.max(1,st.total)*100):0}%</b>
+      </div>
+      <div class="meta">
+        ${p2?`<div class="pn">${esc(p2.n)}</div>
+             <div class="dn">${cyc?esc(cyc.k)+' · '+esc(cyc.n):'Not in the plan'}</div>`
+            :`<div class="pn">No plan yet</div><div class="dn">Set one up in Plan</div>`}
+      </div>
+      <div class="clk num idle">—</div>
+    </div>
+    <div class="subrow">
+      <span class="dt">${new Date((iso||today())+'T12:00').toLocaleDateString(undefined,
+        {weekday:'long',day:'numeric',month:'short'})}${!viewing&&p2&&st?` · week ${st.week} of ${p2.weeks}`:''}</span>
+      ${viewing?'<button class="todaychip" id="backtoday">Today</button>'
+        :`<span class="streakpill ${streak()?'':'none'}">${streak()?streak()+' day streak':'no streak'}</span>`}
+    </div>
+    ${dayStrip(10)}
+  </div>
+`}
+
+function dayView(iso){
+  const p2=curPlan();
+  const sl=p2?slotFor(p2,iso):null;
+  const cyc=sl&&p2?p2.cycle[sl.i]:null;
+  const sets=S.sets.filter(q=>q.date===iso);
+  const isFuture=iso>today();
+  const resume=S.session?`<div class="resumebar">
+      <span class="t">Session in progress · ${esc(S.session.name||'workout')}</span>
+      <button id="backrun">Return</button></div>`:'';
+
+  /* trained: show what actually happened */
+  if(sets.length){
+    const byEx={};sets.forEach(q=>(byEx[q.ex]=byEx[q.ex]||[]).push(q));
+    const dur=sets.reduce((a,q)=>a+(q.dur||0),0);
+    return `<div class="now past">${resume}
+      <span class="badge done">Trained</span>
+      <div class="midhead"><div class="nowtitle">
+        <div class="track">${cyc?esc(cyc.n):'Session'}</div>
+        <div class="sub">${new Date(iso+'T12:00').toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'short'})}</div>
+        <div class="stats">
+          <div class="stat"><b class="num">${sets.length}</b><span>Sets</span></div>
+          <div class="stat"><b class="num">${Math.round(vol(sets)).toLocaleString()}<i> ${G().unit}</i></b><span>Volume</span></div>
+          <div class="stat"><b class="num">${Object.keys(byEx).length}</b><span>Lifts</span></div>
+        </div></div>
+        ${Object.keys(byEx).length?`<div class="art">${figure(Object.keys(byEx)[0],'front')}</div>`:''}
+      </div>
+      <div class="hr"></div>
+      ${Object.entries(byEx).map(([ex,list])=>`
+        <div class="lbl" style="margin:10px 0 2px">${esc(byId(ex).n)}</div>
+        ${list.map((q,i)=>`<div class="item" style="padding:7px 0;min-height:0">
+          <span class="stag ${stype(q).k}">${stype(q).s||(i+1)}</span>
+          <span class="body"><span class="t num">${q.weight?wt(q.weight)+' × ':''}${q.reps}</span></span>
+          ${q.rpe?`<span class="rpetag" style="background:${rpeOf(q.rpe).c}">${q.rpe}</span>`:''}
+        </div>`).join('')}`).join('')}
+    </div>`;
+  }
+
+  /* a day inside the plan that went unrecorded */
+  if(sl&&cyc){
+    if(sl.state==='skipped')return `<div class="now past">${resume}
+      <span class="badge skip">Skipped</span>
+      <div class="track">${esc(cyc.n)}</div>
+      <div class="sub">You skipped this day and the plan moved forward.</div></div>`;
+    if(sl.state==='missed')return `<div class="now past">${resume}
+      <span class="badge miss">Missed</span>
+      <div class="track">${esc(cyc.n)}</div>
+      <div class="sub">Scheduled and not done.</div></div>`;
+    if(!cyc.b.length)return `<div class="now past">${resume}
+      <span class="badge rest">Rest</span>
+      <div class="track">Rest day</div>
+      <div class="sub">${esc(cyc.n)}</div></div>`;
+    if(isFuture)return `<div class="now past">${resume}
+      <span class="badge plan">Planned</span>
+      <div class="midhead"><div class="nowtitle">
+        <div class="track">${esc(cyc.n)}</div>
+        <div class="sub">${new Date(iso+'T12:00').toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'short'})}</div>
+        <div class="stats">
+          <div class="stat"><b class="num">${cyc.b.length}</b><span>Lifts</span></div>
+          <div class="stat"><b class="num">${daySets(p2,sl.i)}</b><span>Sets</span></div>
+          <div class="stat"><b class="num">${planDur(p2,sl.i)}<i> min</i></b><span>Est.</span></div>
+        </div></div>
+        <div class="art">${figure(cyc.b[0].ex,'front')}</div></div>
+      <div class="hr"></div>
+      ${cyc.b.slice(0,4).map(bl=>`<div class="item" style="padding:7px 0;min-height:0">
+        <span class="body"><span class="t">${esc(byId(bl.ex).n)}</span></span>
+        <span class="small mute">${repTxt(bl)}</span></div>`).join('')}
+      ${cyc.b.length>4?`<div class="small mute" style="padding:7px 0 0">and ${cyc.b.length-4} more · start it on the day</div>`
+        :'<div class="small mute" style="padding:7px 0 0">Start it on the day</div>'}
+    </div>`;
+    /* a past training day with no sets and no outcome yet */
+    return `<div class="now past">${resume}
+      <span class="badge miss">Not done</span>
+      <div class="track">${esc(cyc.n)}</div>
+      <div class="sub">Scheduled and nothing was logged.</div>
+      <div class="row tight" style="margin-top:12px">
+        <button class="btn slim flexb" data-missshift="1">Shift the plan forward</button>
+        <button class="btn ghost slim flexb" data-misswrite="1">Write it off</button>
+      </div></div>`;
+  }
+
+  return `<div class="now past">${resume}
+    <div class="empty" style="padding:30px 0;text-align:center">No log for
+      ${new Date(iso+'T12:00').toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'short'})}</div></div>`;
+}
+
 function queueRows(s){
   const out=[],b=s.blocks[s.idx];
   for(let n=b.logged+1;n<b.target;n++){
@@ -3044,6 +3355,24 @@ function setSheet(id){
   <div style="height:14px"></div>
   <button class="btn ghost" data-esdel="${id}">Delete this set</button>`}
 
+function daySheet2(){
+  const p2=S.session&&findWk(S.session.wk);
+  const sl=p2?todaySlot(p2):null;
+  return `<div class="row spread"><h2 style="font-size:20px;color:var(--chalk)">Today</h2>
+    <button class="pill" data-close>Close</button></div>
+  <div class="small mute" style="margin:8px 0 14px">${sl&&p2
+    ? esc(p2.cycle[sl.i].n)+' is scheduled for today.'
+    : 'This session is not part of a plan.'}</div>
+  <button class="item" id="dm-pause">
+    <span class="body"><span class="t">${sessionRunning()?'Pause the session clock':'Resume the session clock'}</span>
+    <span class="small mute">Holds everything without ending the workout</span></span><span class="arw">›</span></button>
+  ${p2?`<button class="item" id="dm-shift">
+    <span class="body"><span class="t">Shift the plan forward</span>
+    <span class="small mute">Today moves to tomorrow, nothing is lost</span></span><span class="arw">›</span></button>
+  <button class="item" id="dm-write">
+    <span class="body"><span class="t" style="color:#E8998F">Write today off</span>
+    <span class="small mute">Marked missed, the schedule stays as planned</span></span><span class="arw">›</span></button>`:''}`}
+
 function restSheet(){
   const g=sessRest();
   return `<div class="row spread"><h2 style="font-size:21px;color:var(--chalk)">Rest</h2>
@@ -3210,6 +3539,78 @@ function wire(){
     const b2=cur();if(!b2)return;
     b2.nextType=q.dataset.settype;hap(6);save();openSheet(adjustSheet(S.session.idx));render()});
   document.querySelectorAll('[data-rpe]').forEach(q=>q.onclick=()=>setRPE(+q.dataset.rpe));
+  const bt2=el('backtoday');if(bt2)bt2.onclick=()=>{
+    selDay=null;const st=el('daystrip');if(st)st._userScrolled=false;hap(6);render()};
+  const br2=el('backrun');if(br2)br2.onclick=()=>{
+    selDay=null;const st=el('daystrip');if(st)st._userScrolled=false;hap(8);render()};
+  const dmb=el('daymenu');if(dmb)dmb.onclick=()=>openSheet(daySheet2());
+  const dmp=el('dm-pause');if(dmp)dmp.onclick=()=>{
+    sessionRunning()?pauseSession():resumeSession();closeSheet();render()};
+  const wo=el('dm-write');if(wo)wo.onclick=async()=>{
+    const p2=S.session&&findWk(S.session.wk);if(!p2){toast('No plan.','bad');return}
+    closeSheet();
+    if(!await dialog({title:'Write today off',
+      body:'Today is marked missed and the schedule stays as planned. This session will not be made up.',
+      confirmText:'Write off',danger:true}))return;
+    markSlot(p2,today(),'missed',false);
+    S.session=null;clearTimer();keepAwake(false);save();render();toast('Written off.')};
+  const skd=el('dm-shift');if(skd)skd.onclick=async()=>{
+    const p2=S.session&&findWk(S.session.wk);if(!p2){toast('No plan to skip.','bad');return}
+    closeSheet();
+    const sl=todaySlot(p2);if(!sl){toast('Today is outside the block.','bad');return}
+    if(!await dialog({title:'Skip today',
+      body:`${p2.cycle[sl.i].n} moves to tomorrow and the rest of the block shifts with it. Nothing is dropped.`,
+      confirmText:'Skip today'}))return;
+    markSlot(p2,today(),'skipped',true);
+    S.session=null;clearTimer();keepAwake(false);save();render();toast('Today skipped, plan shifted.')};
+  document.querySelectorAll('[data-missshift]').forEach(q=>q.onclick=async()=>{
+    const p2=(S.session&&findWk(S.session.wk))||curPlan();if(!p2)return;
+    const miss=pendingMisses(p2);if(!miss.length)return;
+    if(!await dialog({title:miss.length===1?'Shift by one day':`Shift by ${miss.length} days`,
+      body:'Every missed session moves forward, so the block finishes later but nothing is skipped.',
+      confirmText:'Shift'}))return;
+    miss.forEach(m=>{m.state='missed'});
+    shiftFrom(p2,today(),miss.length);
+    save();render();toast('Plan shifted forward.')});
+  document.querySelectorAll('[data-misswrite]').forEach(q=>q.onclick=async()=>{
+    const p2=(S.session&&findWk(S.session.wk))||curPlan();if(!p2)return;
+    const miss=pendingMisses(p2);if(!miss.length)return;
+    if(!await dialog({title:'Write them off',
+      body:'The missed sessions are marked and the schedule stays as planned. Those workouts will not be made up.',
+      confirmText:'Write off',danger:true}))return;
+    miss.forEach(m=>{m.state='missed'});
+    touch('plans');save();render();toast('Marked as missed.')});
+  /* Centre today.
+     Computing scrollLeft by hand needs settled layout and gets it wrong when
+     the strip is narrower than assumed. scrollIntoView lets the browser do it,
+     which is correct at any width. A guard flag stops our own programmatic
+     scroll from being mistaken for the user scrolling away. */
+  const ds2=el('daystrip');
+  if(ds2){
+    const t=ds2.querySelector('.day.today');
+    const snap=(smooth)=>{
+      if(!t)return;
+      ds2._auto=true;
+      try{t.scrollIntoView({inline:'center',block:'nearest',
+        behavior:smooth?'smooth':'auto'})}catch(e){
+        /* older engines: fall back to the arithmetic */
+        if(ds2.clientWidth)ds2.scrollLeft=Math.max(0,
+          t.offsetLeft-ds2.clientWidth/2+t.offsetWidth/2)}
+      setTimeout(()=>{ds2._auto=false},400)};
+    if(!ds2._userScrolled){
+      snap(false);
+      requestAnimationFrame(()=>{if(!ds2._userScrolled)snap(false)});
+      setTimeout(()=>{if(!ds2._userScrolled)snap(false)},150);
+    }
+    if(!ds2._bound){ds2._bound=true;
+      let tm=null;
+      ds2.addEventListener('scroll',()=>{
+        if(ds2._auto)return;              /* ignore our own centring */
+        clearTimeout(tm);
+        tm=setTimeout(()=>{ds2._userScrolled=true},160);
+      },{passive:true});
+    }
+  }
   const bm=el('bMain');if(bm)bm.onclick=()=>{
     const st=timerState();
     if(st.mode==='set')finishSet();
@@ -3334,8 +3735,14 @@ function wire(){
   document.querySelectorAll('[data-eq]').forEach(q=>q.onclick=()=>{filt.eq=q.dataset.eq;render()});
   const q1=el('q');if(q1)q1.oninput=e=>{filt.q=e.target.value;render()};
   document.querySelectorAll('[data-ex]').forEach(q=>q.onclick=()=>openSheet(exSheet(q.dataset.ex)));
-  document.querySelectorAll('[data-day]').forEach(q=>q.onclick=()=>openSheet(daySheet(q.dataset.day)));
-  const ds=el('daystrip');if(ds)ds.scrollLeft=ds.scrollWidth;
+  document.querySelectorAll('[data-day]').forEach(q=>q.onclick=()=>{
+    /* The strip is navigation: it changes the block below rather than opening
+       a sheet. Tapping today clears the selection and re-centres. */
+    const iso=q.dataset.day;
+    selDay=(iso===today())?null:iso;
+    hap(6);
+    if(!selDay){const st=el('daystrip');if(st){st._userScrolled=false}}
+    render()});
   document.querySelectorAll('[data-close]').forEach(q=>q.onclick=closeSheet);
   document.querySelectorAll('[data-addex]').forEach(q=>q.onclick=()=>{
     const id=q.dataset.addex,x=byId(id);
@@ -3475,9 +3882,9 @@ function wire(){
   document.querySelectorAll('[data-delbio]').forEach(q=>q.onclick=()=>{
     S.bio=S.bio.filter(x=>x.d!==q.dataset.delbio);save();render()});
 }
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;pickFor=null;render()});
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;pickFor=null;selDay=null;render()});
 
-const SCHEMA=6;
+const SCHEMA=7;
 /* Migrations run in order and each bumps the version, so a stored document of
    any age converges on the current shape. A document from a NEWER build is
    left alone and flagged, rather than being silently mangled. */
@@ -3491,7 +3898,18 @@ const MIGRATIONS={
       if(p.lastIdx===undefined)p.lastIdx=null})},
   5:d=>{(d.sets||[]).forEach(q=>{if(!q.type)q.type=q.warm?'warm':'work';delete q.warm});
       d.notes=d.notes||{}},
-  6:d=>{/* rpe is optional on every set; nothing to backfill */}
+  6:d=>{/* rpe is optional on every set; nothing to backfill */},
+  7:d=>{(d.plans||[]).forEach(p=>{
+      if(p.sched&&p.sched.length)return;
+      /* lay a schedule over an existing plan, marking days already trained */
+      const start=p.start||new Date().toISOString().slice(0,10);
+      const add=(iso,n)=>{const x=new Date(iso+'T12:00');x.setDate(x.getDate()+n);
+        return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`};
+      const done={};(p.doneDays||[]).forEach(x=>done[x.d]=x.i);
+      p.sched=[];
+      for(let k=0;k<(p.weeks||4)*7;k++){
+        const iso=add(start,k);
+        p.sched.push({d:iso,i:k%p.cycle.length,state:done[iso]!==undefined?'done':null})}})}
 };
 function migrate(d){
   const from=d.schema||0;
